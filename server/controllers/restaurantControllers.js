@@ -1,4 +1,4 @@
-const Restaurant = require("../model/restaurantModels");
+const Restaurant = require("../models/restaurantModels");
 
 exports.listRestaurants = (req, res) => {
   res.json(Restaurant.getAll());
