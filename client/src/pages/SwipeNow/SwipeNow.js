@@ -41,9 +41,31 @@ export default class SwipeNow extends Component {
       });
   }
 
-  swipeRight = () => {
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(prevProps);
+    // console.log(prevState);
+    console.log(prevState.restaurantId);
+    console.log(this.state.restaurantId);
+    // if (prevState.restaurantId === this.state.restaurantId) {
+    //   console.log("yes");
+    // }
+    // if (this.state.restaurantList !== "") {
+    //   console.log("yes");
+    // }
+  }
+
+  swipeRight = (event) => {
     console.log("swiped right");
-    console.log(this.state.restaurantName);
+    // console.log(this.state.restaurantName);
+    console.log(event.target);
+    const newRestaurant = {
+      name: this.state.restaurantName,
+      address: this.state.restaurantAddress,
+      id: this.state.restaurantId,
+    };
+    this.state.restaurantList.push(newRestaurant);
+    // console.log(this.state.restaurantList);
+    // console.log(newRestaurant);
   };
 
   swipeLeft = () => {

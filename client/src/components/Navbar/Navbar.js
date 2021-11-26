@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
  *  - if the user isn't logged in, give a generic message with instructions.
  */
 const Navbar = ({ user, hasFailedAuth }) => {
+  console.log(user);
   return (
     <div className="navbar">
       <span className="logo">
@@ -19,12 +20,6 @@ const Navbar = ({ user, hasFailedAuth }) => {
           <li className="listItem">
             <Link className="link" to="dashboard">
               Dashboard
-            </Link>
-          </li>
-
-          <li className="listItem">
-            <Link className="link" to="swipenow">
-              Swipe Now
             </Link>
           </li>
 
@@ -44,6 +39,16 @@ const Navbar = ({ user, hasFailedAuth }) => {
           <li className="listItem">
             <Link className="link" to="login">
               Login
+            </Link>
+          </li>
+          <li className="listItem">
+            <Link className="link" to="swipenow">
+              Swipe Now
+            </Link>
+          </li>
+          <li className="listItem">
+            <Link className="link" to="signup">
+              Sign Up
             </Link>
           </li>
         </ul>

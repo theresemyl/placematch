@@ -24,7 +24,8 @@ class Login extends Component {
         sessionStorage.setItem("token", res.data.token);
         this.props.onLoginSuccess(res.data.user);
         // FIXME: redirect to the original sender page
-        this.props.history.push("/");
+        // this.props.history.push("/");
+        this.props.history.push("./swipenow");
       })
       .catch((error) => {
         console.log(error);

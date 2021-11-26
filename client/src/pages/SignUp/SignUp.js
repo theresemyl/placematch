@@ -29,6 +29,7 @@ class Signup extends Component {
         this.setState({ success: true, error: "" });
         alert("signed up successfully!");
         event.target.reset();
+        this.props.history.push("./login");
       })
       .catch((error) => {
         // if it breaks, set our success state to false and errors to the appropriate value
