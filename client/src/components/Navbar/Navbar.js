@@ -22,7 +22,11 @@ const Navbar = ({ user, hasFailedAuth }) => {
               Dashboard
             </Link>
           </li>
-
+          <li className="listItem">
+            <Link className="link" to="swipenow">
+              Swipe Now
+            </Link>
+          </li>
           <li className="listItem">
             <Link className="link" to="Logout">
               Logout
