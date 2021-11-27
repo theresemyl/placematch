@@ -12,8 +12,12 @@ const {
   signInUser,
   signUpUser,
   getCurrentUser,
-} = require("../controllers/users");
+} = require("../controllers/userLoginControllers");
 
+const {
+  getUsers,
+  getUserById,
+} = require("../controllers/userDetailControllers");
 /**
  * POST /api/users/signup
  */
@@ -29,5 +33,11 @@ router.post("/login", signInUser);
  * Authentication required
  */
 router.get("/current", auth, getCurrentUser);
+
+// get all users
+// "/api/users/all"
+router.get("/all", getUsers);
+
+router.get("/:id", getUserById);
 
 module.exports = router;

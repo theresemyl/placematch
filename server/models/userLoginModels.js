@@ -8,7 +8,7 @@ const find = (filters) => db(tableName).where(filters);
 const findOneWithPW = (filters) => db(tableName).where(filters).first();
 const findOne = (filters) =>
   db
-    .select(["id", "email", "created_at", "updated_at"])
+    .select(["id", "email", "username", "name", "updated_at"])
     .from(tableName)
     .where(filters)
     .first();
