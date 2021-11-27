@@ -17,6 +17,8 @@ const {
 const {
   getUsers,
   getUserById,
+  getUserLikes,
+  postUserLikes,
 } = require("../controllers/userDetailControllers");
 /**
  * POST /api/users/signup
@@ -39,5 +41,9 @@ router.get("/current", auth, getCurrentUser);
 router.get("/all", getUsers);
 
 router.get("/:id", getUserById);
+
+router.get("/:id/likes", getUserLikes);
+
+router.post("/:id/likes", postUserLikes);
 
 module.exports = router;

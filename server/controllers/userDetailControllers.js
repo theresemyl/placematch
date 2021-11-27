@@ -16,3 +16,12 @@ exports.getUserById = (req, res) => {
     return res.sendStatus(404);
   });
 };
+
+exports.getUserLikes = (req, res) => {
+  // get
+  // findOne to find the one user
+};
+
+exports.postUserLikes = (req, res) => {
+  // post
+};

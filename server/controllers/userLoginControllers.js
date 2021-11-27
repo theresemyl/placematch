@@ -72,13 +72,3 @@ exports.getCurrentUser = (req, res, next) => {
     return res.json({ user });
   });
 };
-
-// exports.getAllUsers.get("/api/users", (req, res) => {
-//   findAll.query(`select * from ${users}`, (err, rows) => {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send(rows);
-//     }
-//   });
-// });
