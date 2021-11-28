@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Input/Input";
+import "./SignUp.scss";
 
 class Signup extends Component {
   state = {
@@ -47,10 +48,21 @@ class Signup extends Component {
           <Input type="text" name="last_name" label="Last name" />
           <Input type="text" name="phone" label="Phone" />
           <Input type="text" name="address" label="Address" /> */}
-          <Input type="text" name="username" label="Username" />
-          <Input type="text" name="name" label="Name" />
-          <Input type="text" name="email" label="Email" />
-          <Input type="password" name="password" label="Password" />
+
+          <Input
+            type="text"
+            name="username"
+            placeholder="username"
+            className="input__field"
+          />
+          <Input
+            type="text"
+            name="name"
+            placeholder="name"
+            className="input__field"
+          />
+          <Input type="text" name="email" placeholder="Email" />
+          <Input type="password" name="password" placeholder="Password" />
 
           <button className="signup__button">Sign up</button>
 

@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  list-style: none;
+}
+.app {
+  background-color: pink;
+  min-height: 100vh;
+}
+
+.app__container {
+  text-align: center;
+  background-color: white;
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 20px;
+  min-height: 700px;
+  // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 40px;
+}

@@ -9,14 +9,9 @@ const Navbar = ({ user, hasFailedAuth }) => {
   console.log(user);
   return (
     <div className="navbar">
-      <span className="logo">
-        <Link className="link" to="/">
-          Demo App
-        </Link>
-      </span>
       {user ? (
         <ul className="list">
-          <li className="listItem">Welcome, {user.email}</li>
+          <li className="listItem">Logged in as {user.email}</li>
           <li className="listItem">
             <Link className="link" to="dashboard">
               Dashboard

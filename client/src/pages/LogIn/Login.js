@@ -39,31 +39,33 @@ class Login extends Component {
         <form className="login" onSubmit={this.handleSubmit}>
           <h1 className="login__title">Login</h1>
           <div className="field">
-            <label htmlFor="email" className="field__label">
+            {/* <label htmlFor="email" className="field__label">
               Email
-            </label>
+            </label> */}
             <input
               className="field__input"
               type="email"
               name="email"
               id="email"
+              placeholder="email"
               onChange={this.handleChange}
             />
           </div>
           <div className="field">
-            <label htmlFor="password" className="field__label">
+            {/* <label htmlFor="password" className="field__label">
               Password
-            </label>
+            </label> */}
             <input
               className="field__input"
               type="password"
               name="password"
               id="password"
+              placeholder="password"
               onChange={this.handleChange}
             />
           </div>
           <button className="login__button">Login</button>
-          {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>}
+          {/* {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>} */}
 
           {this.state.isError && (
             <div className="login__message">{this.state.error}!</div>

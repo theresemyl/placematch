@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { Component } from "react";
@@ -41,41 +41,51 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <BrowserRouter>
-          <Navbar user={this.state.currentUser} />
-          <Switch>
-            <Redirect from="/" exact to="/login" />
-            <Route
-              path={"/login"}
-              render={(routerProps) => (
-                <Login
-                  {...routerProps}
-                  onLoginSuccess={(user) => {
-                    this.handleLogin(user);
-                  }}
-                />
-              )}
-            />
-            <Route path={"/logout"} component={Logout} />
+      <div className="app">
+        <br />
+        <br />
+        <br />
+        <br />
+        <div className="app__container">
+          <BrowserRouter>
+            <Navbar user={this.state.currentUser} />
+            <Switch>
+              <Redirect from="/" exact to="/login" />
+              <Route
+                path={"/login"}
+                render={(routerProps) => (
+                  <Login
+                    {...routerProps}
+                    onLoginSuccess={(user) => {
+                      this.handleLogin(user);
+                    }}
+                  />
+                )}
+              />
+              <Route path={"/logout"} component={Logout} />
 
-            {/* <Route path="/login" exact component={Login} /> */}
-            <Route path="/signup" exact component={SignUp} />
-            <ProtectedRoute
-              path="/chooselocation"
-              exact
-              component={ChooseLocation}
-            />
-            <ProtectedRoute
-              path="/choosefriend"
-              exact
-              component={ChooseFriend}
-            />
-            <ProtectedRoute path="/swipenow" exact component={SwipeNow} />
-            <ProtectedRoute path="/newmatch" exact component={NewMatch} />
-            <ProtectedRoute path={"/dashboard"} component={Dashboard} />
-          </Switch>
-        </BrowserRouter>
+              {/* <Route path="/login" exact component={Login} /> */}
+              <Route path="/signup" exact component={SignUp} />
+              <ProtectedRoute
+                path="/chooselocation"
+                exact
+                component={ChooseLocation}
+              />
+              <ProtectedRoute
+                path="/choosefriend"
+                exact
+                component={ChooseFriend}
+              />
+              <ProtectedRoute path="/swipenow" exact component={SwipeNow} />
+              <ProtectedRoute path="/newmatch" exact component={NewMatch} />
+              <ProtectedRoute path={"/dashboard"} component={Dashboard} />
+            </Switch>
+          </BrowserRouter>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

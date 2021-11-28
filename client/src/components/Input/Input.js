@@ -4,7 +4,13 @@ function Input({ label, name, type }) {
       <label htmlFor={name} className="field__label">
         {label}
       </label>
-      <input type={type} id={name} name={name} className="field__input" />
+      <input
+        type={type}
+        id={name}
+        name={name}
+        placeholder={name}
+        className="field__input"
+      />
     </div>
   );
 }

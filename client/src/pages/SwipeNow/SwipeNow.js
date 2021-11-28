@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import "./SwipeNow.scss";
 import TinderCard from "react-tinder-card";
+import Input from "../../components/Input/Input";
 
 export default class SwipeNow extends Component {
   state = {
@@ -11,6 +12,7 @@ export default class SwipeNow extends Component {
     restaurantAddress: "",
     restaurantId: "",
     liked: false,
+    swipeWith: "",
   };
 
   restaurantList = [];
@@ -108,33 +110,63 @@ export default class SwipeNow extends Component {
     this.setState({ restaurantName: "", restaurantId: null });
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({ swipeWith: event.target.name.value });
+    console.log(this.state.swipeWith);
+  };
+
   render() {
     return (
       <div className="swipenow">
-        <h1>Swipe now!</h1>
-        <br />
-        <TinderCard
-          className="swipenow__card"
-          onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
-          onCardLeftScreen={() => this.outOfFrame(this.state.restaurantName)}
-        >
-          <img
-            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png?crop=1.00xw:1.00xh;0,0&resize=480:*"
-            alt="pizza"
-          />
+        {this.state.swipeWith === "" ? (
+          <div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <h1>Who would you like to swipe with today?</h1>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                name="name"
+                label="name"
+                placeholder="Enter friend's username here..."
+                className="input__field"
+              />
+              <br />
+              <button>Enter</button>
+            </form>
+          </div>
+        ) : (
+          <div>
+            <h1>Swipe now!</h1>
+            <br />
+            <TinderCard
+              className="swipenow__card"
+              onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
+              onCardLeftScreen={() =>
+                this.outOfFrame(this.state.restaurantName)
+              }
+            >
+              <img
+                src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png?crop=1.00xw:1.00xh;0,0&resize=480:*"
+                alt="pizza"
+              />
 
-          <h2>{this.state.restaurantName}</h2>
-          <h2>{this.state.restaurantAddress}</h2>
-          <p>ID: {this.state.restaurantId}</p>
-          <button onClick={this.swipeLeft}>Swipe Left</button>
-          <button onClick={this.swipeRight}>Swipe Right</button>
-          <br />
-          <br />
-        </TinderCard>
+              <h3>{this.state.restaurantName}</h3>
+              <h3>{this.state.restaurantAddress}</h3>
+              <p>ID: {this.state.restaurantId}</p>
+              {/* <button onClick={this.swipeLeft}>Swipe Left</button>
+          <button onClick={this.swipeRight}>Swipe Right</button> */}
+              <br />
+            </TinderCard>
+          </div>
+        )}
         <br />
         <br />
         <br />
-        <TinderCard
+        {/* <TinderCard
           className="swipenow__card"
           onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
           onCardLeftScreen={() => this.outOfFrame(this.state.restaurantName)}
@@ -149,9 +181,7 @@ export default class SwipeNow extends Component {
         </TinderCard>
         <br />
         <br />
-        <br />
-        {/* Add an onclick here - once you click YES (swipe right), do an axios post to JSON/database
-        writing in the information (state) of the restaurant info */}
+        <br /> */}
       </div>
     );
   }
