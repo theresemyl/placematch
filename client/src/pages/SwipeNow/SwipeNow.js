@@ -6,35 +6,27 @@ import TinderCard from "react-tinder-card";
 export default class SwipeNow extends Component {
   state = {
     currentCard: "",
-    restaurantList: [],
     restaurantName: "",
     restaurantAddress: "",
     restaurantId: "",
   };
+
+  restaurantList = [];
 
   componentDidMount() {
     console.log("mounted");
     axios
       .get("./api/restaurants")
       .then((response) => {
-        // console.log(response.data.results[0].name);
-        // console.log(this.props.match.params.id);
         const list = response.data.results.map((restaurant) => {
-          //   console.log(restaurant.name, restaurant.vicinity);
           return restaurant;
-          //   return restaurant.name, restaurant.vicinity
         });
+        this.restaurantList.push(list);
         const randomIndex = Math.floor(Math.random() * 20);
-        // console.log(randomIndex);
-        // console.log(list);
         this.setState({
           restaurantName: list[randomIndex].name,
           restaurantId: list[randomIndex].place_id,
           restaurantAddress: list[randomIndex].vicinity,
-          //   restaurantName: list.restaurant,
-          //   restaurantAddress: list.vicinity,
-          //   restaurantName: response.data.results[0].name,
-          //   restaurantAddress: response.data.results[0].vicinity,
         });
         return;
       })
@@ -44,68 +36,73 @@ export default class SwipeNow extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log(prevProps);
-    // console.log(prevState);
     console.log(prevState.restaurantId);
     console.log(this.state.restaurantId);
-    // if (prevState.restaurantId === this.state.restaurantId) {
-    //   console.log("yes");
-    // }
-    // if (this.state.restaurantList !== "") {
-    //   console.log("yes");
-    // }
+    if (this.state.restaurantId === null) {
+      console.log("id null");
+      axios
+        .get("./api/restaurants")
+        .then((response) => {
+          const list = response.data.results.map((restaurant) => {
+            return restaurant;
+          });
+          this.restaurantList.push(list);
+          const randomIndex = Math.floor(Math.random() * 20);
+          this.setState({
+            restaurantName: list[randomIndex].name,
+            restaurantId: list[randomIndex].place_id,
+            restaurantAddress: list[randomIndex].vicinity,
+          });
+          return;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // console.log(this.restaurantList[0]);
+    // console.log(prevProps);
+    // const randomIndex = Math.floor(Math.random() * 20);
+    // const test = this.restaurantList.map((restaurant) => {
+    //   return restaurant[randomIndex].name;
+    // });
+
+    // this.setState({ restaurantName: "" });
+    // console.log(test);
   }
 
-  swipeRight = (event) => {
-    console.log("swiped right");
-    // console.log(this.state.restaurantName);
-    console.log(event.target);
-    const newRestaurant = {
-      name: this.state.restaurantName,
-      address: this.state.restaurantAddress,
-      id: this.state.restaurantId,
-    };
-    this.state.restaurantList.push(newRestaurant);
-    // console.log(this.state.restaurantList);
-    // console.log(newRestaurant);
+  onSwipe = (direction) => {
+    console.log("You swiped: " + direction);
   };
 
-  swipeLeft = () => {
-    console.log("swiped left");
+  onCardLeftScreen = (myIdentifier) => {
+    console.log(myIdentifier + " left the screen");
+    // this.setState({ restaurantName: "", restaurantId: null });
   };
 
-  //   onSwipe = (direction) => {
-  //     console.log("You swiped: " + direction);
-  //   };
+  swiped = (direction, nameToDelete) => {
+    console.log("removing: " + nameToDelete);
+  };
 
-  //   onCardLeftScreen = (myIdentifier) => {
-  //     console.log(myIdentifier + " left the screen");
-  //   };
-
-  //   swiped = (direction, nameToDelete) => {
-  //     console.log("removing: " + nameToDelete);
-  //   };
-
-  //   outOfFrame = (name) => {
-  //     console.log(name + " left the screen!");
-  //   };
+  outOfFrame = (name) => {
+    console.log(name + " left the screen!");
+    this.setState({ restaurantName: "", restaurantId: null });
+  };
 
   render() {
     return (
       <div className="swipenow">
         <h1>Swipe now!</h1>
         <br />
-        <div
+        <TinderCard
           className="swipenow__card"
-          //   onSwipe={(dir) => this.props.swiped(dir, this.state.restaurantName)}
-          //   onCardLeftScreen={() =>
-          //     this.props.outOfFrame(this.state.restaurantName)
-          //   }
+          onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
+          onCardLeftScreen={() => this.outOfFrame(this.state.restaurantName)}
         >
           <img
             src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png?crop=1.00xw:1.00xh;0,0&resize=480:*"
             alt="pizza"
           />
+
           <h2>{this.state.restaurantName}</h2>
           <h2>{this.state.restaurantAddress}</h2>
           <p>ID: {this.state.restaurantId}</p>
@@ -113,15 +110,14 @@ export default class SwipeNow extends Component {
           <button onClick={this.swipeRight}>Swipe Right</button>
           <br />
           <br />
-        </div>
+        </TinderCard>
         <br />
         <br />
         <br />
         <TinderCard
-          onSwipe={this.props.onSwipe}
-          onCardLeftScreen={() => this.props.onCardLeftScreen("fooBar")}
-          preventSwipe={["right", "left"]}
           className="swipenow__card"
+          onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
+          onCardLeftScreen={() => this.outOfFrame(this.state.restaurantName)}
         >
           <br />
           <br />

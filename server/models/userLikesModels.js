@@ -8,12 +8,13 @@ const find = (filters) => db(tableName).where(filters);
 const findOne = (filters) => db(tableName).where(filters).first();
 
 // create
-const create = (obj) => {
-  const id = uuidv4();
-  return db(tableName)
-    .insert({ ...obj, id })
-    .then(() => findOne({ id }));
-};
+// const create = (obj) => {
+//   const id = uuidv4();
+//   return db(tableName)
+//     .insert({ ...obj, id })
+//     .then(() => findOne({ id }));
+// };
+const create = (restaurant) => db(tableName).insert(restaurant);
 
 // update
 const update = (id, obj) => {
