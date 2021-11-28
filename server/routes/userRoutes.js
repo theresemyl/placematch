@@ -24,6 +24,8 @@ const {
   postUserLikes,
 } = require("../controllers/userLikesControllers");
 
+// const { postJson } = require("../controllers/postJsonControllers");
+
 /**
  * POST /api/users/signup
  */
@@ -49,5 +51,37 @@ router.get("/:id", getUserById);
 // router.get("/:id/likes", getUserLikes);
 
 router.post("/:id/likes", postUserLikes);
+
+// const postLike = (likes) => {
+//   fs.writeFile("../data/tempLikesData.json", JSON.stringify(likes), (err) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//   });
+// };
+
+let likeData = [];
+
+router.post("/likes", (req, res) => {
+  console.log("req body", req.body);
+  // console.log("res body", res.body);
+  const { id, restaurantName, restaurantAddress, restaurantId } = req.body;
+
+  const newLike = {
+    id,
+    restaurantName,
+    restaurantAddress,
+    restaurantId,
+  };
+
+  fs.writeFile("./data/tempLikesData.json", JSON.stringify(newLike), (err) => {
+    // if (err) {
+    //   res.status(500).send(err);
+    // }
+    console.log("file updated");
+    res.status(201).json(newLike);
+    // res.send("hello");
+  });
+});
 
 module.exports = router;

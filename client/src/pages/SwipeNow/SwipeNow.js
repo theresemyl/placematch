@@ -5,10 +5,12 @@ import TinderCard from "react-tinder-card";
 
 export default class SwipeNow extends Component {
   state = {
+    id: 1,
     currentCard: "",
     restaurantName: "",
     restaurantAddress: "",
     restaurantId: "",
+    liked: false,
   };
 
   restaurantList = [];
@@ -77,10 +79,28 @@ export default class SwipeNow extends Component {
   onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + " left the screen");
     // this.setState({ restaurantName: "", restaurantId: null });
+    this.setState({ liked: false });
   };
 
   swiped = (direction, nameToDelete) => {
     console.log("removing: " + nameToDelete);
+    const { restaurantName, restaurantAddress, restaurantId, liked } =
+      this.state;
+
+    axios
+      .post(`http://localhost:8080/api/users/likes`, {
+        id: 1,
+        restaurantName,
+        restaurantAddress,
+        restaurantId,
+        liked,
+      })
+      .then(() => {
+        alert("posted");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   outOfFrame = (name) => {
