@@ -1,188 +1,77 @@
-import axios from "axios";
-import React, { Component } from "react";
-import "./SwipeNow.scss";
+import React, { useState, useEffect } from "react";
+// import TinderCard from '../react-tinder-card/index'
 import TinderCard from "react-tinder-card";
-import Input from "../../components/Input/Input";
+import axios from "axios";
+import "./SwipeNow.scss";
 
-export default class SwipeNow extends Component {
-  state = {
-    id: 1,
-    currentCard: "",
-    restaurantName: "",
-    restaurantAddress: "",
-    restaurantId: "",
-    liked: false,
-    swipeWith: "",
-  };
+let restaurantList = [];
 
-  restaurantList = [];
+axios
+  .get("./api/restaurants")
+  .then((response) => {
+    const list = response.data.results.map((restaurant) => {
+      return restaurant;
+    });
+    restaurantList.push(list);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-  componentDidMount() {
-    console.log("mounted");
-    axios
-      .get("./api/restaurants")
-      .then((response) => {
-        const list = response.data.results.map((restaurant) => {
-          return restaurant;
-        });
-        this.restaurantList.push(list);
-        const randomIndex = Math.floor(Math.random() * 20);
-        this.setState({
-          restaurantName: list[randomIndex].name,
-          restaurantId: list[randomIndex].place_id,
-          restaurantAddress: list[randomIndex].vicinity,
-        });
-        return;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+function SwipeNow() {
+  const [lastDirection, setLastDirection] = useState();
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState.restaurantId);
-    console.log(this.state.restaurantId);
-    if (this.state.restaurantId === null) {
-      console.log("id null");
-      axios
-        .get("./api/restaurants")
-        .then((response) => {
-          const list = response.data.results.map((restaurant) => {
-            return restaurant;
-          });
-          this.restaurantList.push(list);
-          const randomIndex = Math.floor(Math.random() * 20);
-          this.setState({
-            restaurantName: list[randomIndex].name,
-            restaurantId: list[randomIndex].place_id,
-            restaurantAddress: list[randomIndex].vicinity,
-          });
-          return;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    // console.log(this.restaurantList[0]);
-    // console.log(prevProps);
-    // const randomIndex = Math.floor(Math.random() * 20);
-    // const test = this.restaurantList.map((restaurant) => {
-    //   return restaurant[randomIndex].name;
-    // });
+  useEffect(() => {
+    console.log("re-rendering");
+  });
 
-    // this.setState({ restaurantName: "" });
-    // console.log(test);
-  }
+  const mappedRestaurantList = restaurantList[0].map((restaurant) => {
+    return restaurant;
+  });
 
-  onSwipe = (direction) => {
-    console.log("You swiped: " + direction);
-  };
-
-  onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + " left the screen");
-    // this.setState({ restaurantName: "", restaurantId: null });
-    this.setState({ liked: false });
-  };
-
-  swiped = (direction, nameToDelete) => {
+  const swiped = (direction, nameToDelete) => {
     console.log("removing: " + nameToDelete);
-    const { restaurantName, restaurantAddress, restaurantId, liked } =
-      this.state;
-
-    axios
-      .post(`http://localhost:8080/api/users/likes`, {
-        id: 1,
-        restaurantName,
-        restaurantAddress,
-        restaurantId,
-        liked,
-      })
-      .then(() => {
-        alert("posted");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setLastDirection(direction);
   };
 
-  outOfFrame = (name) => {
+  const outOfFrame = (name) => {
     console.log(name + " left the screen!");
-    this.setState({ restaurantName: "", restaurantId: null });
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState({ swipeWith: event.target.name.value });
-    console.log(this.state.swipeWith);
-  };
-
-  render() {
-    return (
-      <div className="swipenow">
-        {this.state.swipeWith === "" ? (
-          <div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <h1>Who would you like to swipe with today?</h1>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                name="name"
-                label="name"
-                placeholder="Enter friend's username here..."
-                className="input__field"
-              />
-              <br />
-              <button>Enter</button>
-            </form>
-          </div>
-        ) : (
-          <div>
-            <h1>Swipe now!</h1>
-            <br />
-            <TinderCard
-              className="swipenow__card"
-              onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
-              onCardLeftScreen={() =>
-                this.outOfFrame(this.state.restaurantName)
-              }
-            >
+  return (
+    <div>
+      <h1>Swipe Now</h1>
+      <div className="cardContainer">
+        {mappedRestaurantList.map((restaurant) => (
+          <TinderCard
+            className="swipe"
+            key={restaurant.name}
+            onSwipe={(dir) => swiped(dir, restaurant.name)}
+            onCardLeftScreen={() => outOfFrame(restaurant.name)}
+          >
+            <div className="card">
               <img
                 src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png?crop=1.00xw:1.00xh;0,0&resize=480:*"
                 alt="pizza"
               />
-
-              <h3>{this.state.restaurantName}</h3>
-              <h3>{this.state.restaurantAddress}</h3>
-              <p>ID: {this.state.restaurantId}</p>
-              {/* <button onClick={this.swipeLeft}>Swipe Left</button>
-          <button onClick={this.swipeRight}>Swipe Right</button> */}
-              <br />
-            </TinderCard>
-          </div>
-        )}
+              <h3>{restaurant.name}</h3>
+              <h3>{restaurant.vicinity}</h3>
+              <p>{restaurant.place_id}</p>
+            </div>
+          </TinderCard>
+        ))}
         <br />
         <br />
         <br />
-        {/* <TinderCard
-          className="swipenow__card"
-          onSwipe={(dir) => this.swiped(dir, this.state.restaurantName)}
-          onCardLeftScreen={() => this.outOfFrame(this.state.restaurantName)}
-        >
-          <br />
-          <br />
-          <br />
-          Hello, World!
-          <br />
-          <br />
-          <br />
-        </TinderCard>
         <br />
-        <br />
-        <br /> */}
       </div>
-    );
-  }
+      {lastDirection ? (
+        <h2 className="infoText">You swiped {lastDirection}</h2>
+      ) : (
+        <h2 className="infoText" />
+      )}
+    </div>
+  );
 }
+
+export default SwipeNow;

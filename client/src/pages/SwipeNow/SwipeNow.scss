@@ -3,11 +3,37 @@
 //   justify-content: center;
 // }
 
-.swipenow__card {
+// .swipenow__card {
+//   margin: 0 auto;
+//   width: 350px;
+//   overflow: hidden;
+//   text-align: center;
+//   background-color: #ffe4ed;
+//   border-radius: 20px;
+//   position: relative;
+// }
+
+.swipe {
+  position: absolute;
+}
+
+.cardContainer {
   margin: 0 auto;
-  width: 350px;
+  // width: 90vw;
+  // max-width: 260px;
+  height: 500px;
+}
+
+.card {
+  position: relative;
+  margin: 0 auto;
+  width: 420px;
+  min-height: 350px;
   overflow: hidden;
   text-align: center;
   background-color: #ffe4ed;
   border-radius: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 }
