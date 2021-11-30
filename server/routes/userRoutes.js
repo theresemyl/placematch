@@ -51,29 +51,29 @@ router.get("/:id", getUserById);
 // router.get("/:id/likes", getUserLikes);
 
 // writing to database
-router.post("/:id/likes", postUserLikes);
+router.post("/likes", postUserLikes);
 
 // test - writing to temporary json file
-router.post("/likes", (req, res) => {
-  console.log("req body", req.body);
-  // console.log("res body", res.body);
-  const { users_id, name, address, id } = req.body;
+// router.post("/likes", (req, res) => {
+//   console.log("req body", req.body);
+//   // console.log("res body", res.body);
+//   const { users_id, name, address, id } = req.body;
 
-  const newLike = {
-    users_id,
-    name,
-    address,
-    id,
-  };
+//   const newLike = {
+//     users_id,
+//     name,
+//     address,
+//     id,
+//   };
 
-  fs.writeFile("./data/tempLikesData.json", JSON.stringify(newLike), (err) => {
-    // if (err) {
-    //   res.status(500).send(err);
-    // }
-    console.log("file updated");
-    res.status(201).json(newLike);
-    // res.send("hello");
-  });
-});
+//   fs.writeFile("./data/tempLikesData.json", JSON.stringify(newLike), (err) => {
+//     // if (err) {
+//     //   res.status(500).send(err);
+//     // }
+//     console.log("file updated");
+//     res.status(201).json(newLike);
+//     // res.send("hello");
+//   });
+// });
 
 module.exports = router;

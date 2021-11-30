@@ -66,9 +66,11 @@ class Login extends Component {
           </div>
           <button className="login__button">Login</button>
           {/* {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>} */}
-
+          <br />
           {this.state.isError && (
-            <div className="login__message">{this.state.error}!</div>
+            <div className="login__message">
+              Wrong password! sign up or go away!!!
+            </div>
           )}
         </form>
       </main>

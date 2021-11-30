@@ -13,6 +13,7 @@ function SwipeNow() {
   const [restaurantName, setRestaurantName] = useState("");
   const [restaurantAddress, setRestaurantAddress] = useState("");
   const [restaurantId, setRestaurantId] = useState();
+  const [foundUser, setFoundUser] = useState(null);
 
   useEffect(() => {
     console.log("re-rendering");
@@ -22,9 +23,9 @@ function SwipeNow() {
       .then((response) => {
         // console.log(response.data.results);
         let list = response.data.results.map((restaurant) => {
-          setRestaurantName(restaurant.name);
-          setRestaurantAddress(restaurant.vicinity);
-          setRestaurantId(restaurant.place_id);
+          // setRestaurantName(restaurant.name);
+          // setRestaurantAddress(restaurant.vicinity);
+          // setRestaurantId(restaurant.place_id);
           return restaurant;
         });
         // restaurantList.push(list);
@@ -39,23 +40,33 @@ function SwipeNow() {
         console.log(err);
       });
 
-    // set state of restaurant list
-    // setRestaurantList(mappedRestaurantList);
+    // handleSubmit();
   }, []);
 
-  const swiped = (direction, name) => {
+  const swiped = (direction, name, restaurant) => {
     // console.log("removing: " + name);
+
+    if (direction === "right") {
+      console.log("yay");
+    } else if (direction === "left") {
+      console.log("nay");
+    }
     setLastDirection(direction);
-    console.log(restaurantName);
-    // console.log(restaurantAddress);
-    // console.log(restaurantId);
-    // test
+    console.log(name);
+    console.log(restaurant.vicinity);
+    console.log(restaurant.place_id);
+
+    setRestaurantName(name);
+    setRestaurantAddress(restaurant.vicinity);
+    setRestaurantId(restaurant.place_id);
+    // set state to the above, and then in following, post with that state
+    console.log(restaurantAddress);
     axios
       .post(`./api/users/likes`, {
         users_id: 1,
-        restaurantName,
-        restaurantAddress,
-        restaurant_id: 1,
+        name: name,
+        address: restaurantAddress,
+        id: restaurantId,
         // liked: true,
       })
       .then(() => {
@@ -68,7 +79,31 @@ function SwipeNow() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSwipeWith(event);
+
+    axios
+      .get("./api/users/all")
+      .then((response) => {
+        let findUser = response.data.find((name) => {
+          return name.username === event.target.name.value;
+          // console.log(response.data);
+          // name from the database is this:
+          // console.log(name.name);
+          // console.log(event.target.name.value);
+          // want to find the one that === event.target.value
+        });
+
+        if (findUser) {
+          setFoundUser(findUser.username);
+        } else {
+          alert("user not found");
+          setFoundUser(null);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // setSwipeWith(event);
   };
 
   const outOfFrame = (name) => {
@@ -77,7 +112,8 @@ function SwipeNow() {
 
   return (
     <div>
-      {swipeWith === "" ? (
+      {/* {swipeWith === "" ? ( */}
+      {foundUser === null ? (
         <div>
           <br />
           <br />
@@ -97,14 +133,16 @@ function SwipeNow() {
       ) : (
         <div className="cardContainer">
           <h2>
-            You are currently swiping with <i>{swipeWith.target.name.value}</i>!
+            You are currently swiping with
+            {/* <i> {swipeWith.target.name.value}</i>! */}
+            <i> {foundUser}!</i>
           </h2>
           <br />
           {restaurantList.map((restaurant) => (
             <TinderCard
               className="swipe"
               key={restaurant.name}
-              onSwipe={(dir) => swiped(dir, restaurant.name)}
+              onSwipe={(dir) => swiped(dir, restaurant.name, restaurant)}
               onCardLeftScreen={() => outOfFrame(restaurant.name)}
             >
               <div className="card">
@@ -115,6 +153,7 @@ function SwipeNow() {
                 <h3>{restaurant.name}</h3>
                 <h3>{restaurant.vicinity}</h3>
                 <p>{restaurant.place_id}</p>
+                <p>restaurant address: {restaurantAddress}</p>
               </div>
             </TinderCard>
           ))}
