@@ -6,12 +6,7 @@ const User = require("../models/userLikesModels");
 
 exports.postUserLikes = (req, res) => {
   // post
-  const userObj = {
-    users_id: 0,
-    restaurantName: "",
-    restaurantAddress: "",
-    restaurant_id: 0,
-  };
+  const userObj = { ...req.body };
   User.create(userObj).then((user) => {
     console.log(user);
     res.status(201).json({ user: userObj });

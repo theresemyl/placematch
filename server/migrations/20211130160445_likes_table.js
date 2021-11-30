@@ -1,10 +1,18 @@
 exports.up = function (knex) {
-  return knex.schema.createTable("users", function (table) {
+  return knex.schema.createTable("likes", function (table) {
     table.increments("id").primary();
-    table.string("email").notNullable();
-    table.string("username").notNullable();
     table.string("name").notNullable();
-    table.string("password").notNullable();
+    table.string("address").notNullable();
+    table.integer("users_id").unsigned();
+    table
+      .foreign("users_id")
+      // .unsigned()
+      // .notNullable()
+      .references("id")
+      .inTable("users")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });

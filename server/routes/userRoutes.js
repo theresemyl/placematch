@@ -50,21 +50,20 @@ router.get("/:id", getUserById);
 
 // router.get("/:id/likes", getUserLikes);
 
+// writing to database
 router.post("/:id/likes", postUserLikes);
 
-let likeData = [];
-
+// test - writing to temporary json file
 router.post("/likes", (req, res) => {
   console.log("req body", req.body);
   // console.log("res body", res.body);
-  const { users_id, restaurantName, restaurantAddress, restaurant_id } =
-    req.body;
+  const { users_id, name, address, id } = req.body;
 
   const newLike = {
     users_id,
-    restaurantName,
-    restaurantAddress,
-    restaurant_id,
+    name,
+    address,
+    id,
   };
 
   fs.writeFile("./data/tempLikesData.json", JSON.stringify(newLike), (err) => {

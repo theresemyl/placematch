@@ -1,30 +1,16 @@
 module.exports = [
   {
     id: 1,
-    username: "coolchristy",
-    name: "Christy",
+    username: "person1",
+    name: "person1",
     password: "hello",
-    email: "coolchristy@gmail.com",
+    email: "person1@gmail.com",
   },
   {
     id: 2,
-    username: "loserlizzie",
-    name: "Lizzie",
+    username: "person2",
+    name: "person2",
     password: "hello",
-    email: "loserlizzie@gmail.com",
-  },
-  {
-    id: 3,
-    username: "awesomeaudrey",
-    name: "Audrey",
-    password: "hello",
-    email: "awesomeaudrey@gmail.com",
-  },
-  {
-    id: 4,
-    username: "supersusie",
-    name: "Susie",
-    password: "hello",
-    email: "supersusie@gmail.com",
+    email: "person2@gmail.com",
   },
 ];

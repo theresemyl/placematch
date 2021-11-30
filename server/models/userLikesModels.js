@@ -14,7 +14,7 @@ const findOne = (filters) => db(tableName).where(filters).first();
 //     .insert({ ...obj, id })
 //     .then(() => findOne({ id }));
 // };
-const create = (restaurant) => db(tableName).insert(restaurant);
+const create = (restaurant) => db(tableName).insert({ ...restaurant });
 
 // update
 const update = (id, obj) => {
