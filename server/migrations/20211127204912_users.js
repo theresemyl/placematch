@@ -9,17 +9,18 @@ exports.up = function (knex) {
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
     })
-    .createTable("users_likes", function (table) {
-      table.increments("id").primary();
-      table.string("name").notNullable();
-      table.string("address").notNullable();
+    .createTable("likes", function (table) {
+      table.increments("restaurant_id").primary();
+      table.string("restaurantName").notNullable();
+      table.string("restaurantAddress").notNullable();
       table
         .integer("users_id")
         .unsigned()
-        .notNullable()
-        .references("id")
+        // .notNullable()
+        .references("users_id")
         .inTable("users")
         .onUpdate("CASCADE")
+        .foreign("users_id")
         .onDelete("CASCADE");
 
       table.timestamp("created_at").defaultTo(knex.fn.now());
@@ -28,5 +29,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTable("users_likes").dropTable("users");
+  return knex.schema.dropTable("likes").dropTable("users");
 };

@@ -9,22 +9,22 @@ class Login extends Component {
     isError: false,
   };
 
-  handleChange = (e) => {
+  handleChange = (event) => {
     this.setState({
-      formData: { ...this.state.formData, [e.target.name]: e.target.value },
+      formData: {
+        ...this.state.formData,
+        [event.target.name]: event.target.value,
+      },
     });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    // This works because of the proxy property on /client/package.json.
+  handleSubmit = (event) => {
+    event.preventDefault();
     axios
       .post("/api/users/login", this.state.formData)
       .then((res) => {
         sessionStorage.setItem("token", res.data.token);
         this.props.onLoginSuccess(res.data.user);
-        // FIXME: redirect to the original sender page
-        // this.props.history.push("/");
         this.props.history.push("./swipenow");
       })
       .catch((error) => {

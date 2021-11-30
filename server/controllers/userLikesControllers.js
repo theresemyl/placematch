@@ -8,9 +8,9 @@ exports.postUserLikes = (req, res) => {
   // post
   const userObj = {
     users_id: 0,
-    name: "",
-    address: "",
-    id: 0,
+    restaurantName: "",
+    restaurantAddress: "",
+    restaurant_id: 0,
   };
   User.create(userObj).then((user) => {
     console.log(user);

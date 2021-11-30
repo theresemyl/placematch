@@ -52,26 +52,19 @@ router.get("/:id", getUserById);
 
 router.post("/:id/likes", postUserLikes);
 
-// const postLike = (likes) => {
-//   fs.writeFile("../data/tempLikesData.json", JSON.stringify(likes), (err) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//   });
-// };
-
 let likeData = [];
 
 router.post("/likes", (req, res) => {
   console.log("req body", req.body);
   // console.log("res body", res.body);
-  const { id, restaurantName, restaurantAddress, restaurantId } = req.body;
+  const { users_id, restaurantName, restaurantAddress, restaurant_id } =
+    req.body;
 
   const newLike = {
-    id,
+    users_id,
     restaurantName,
     restaurantAddress,
-    restaurantId,
+    restaurant_id,
   };
 
   fs.writeFile("./data/tempLikesData.json", JSON.stringify(newLike), (err) => {
