@@ -61,7 +61,7 @@ class Signup extends Component {
             placeholder="name"
             className="input__field"
           />
-          <Input type="text" name="email" placeholder="Email" />
+          <Input type="email" name="email" placeholder="Email" />
           <Input type="password" name="password" placeholder="Password" />
 
           <button className="signup__button">Sign up</button>

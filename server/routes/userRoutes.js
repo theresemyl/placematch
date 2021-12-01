@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
 const uniqid = require("uniqid");
 // const { listUsers } = require("../controllers/userControllers");
 // const userControllers = require("../controllers/userControllers");
@@ -20,8 +19,8 @@ const {
 } = require("../controllers/userDetailControllers");
 
 const {
-  getUserLikes,
   postUserLikes,
+  getUserLikes,
 } = require("../controllers/userLikesControllers");
 
 // const { postJson } = require("../controllers/postJsonControllers");
@@ -52,6 +51,8 @@ router.get("/:id", getUserById);
 
 // writing to database
 router.post("/likes", postUserLikes);
+
+router.get("/likes", getUserLikes);
 
 // test - writing to temporary json file
 // router.post("/likes", (req, res) => {

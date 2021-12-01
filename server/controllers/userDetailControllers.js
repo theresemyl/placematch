@@ -16,22 +16,3 @@ exports.getUserById = (req, res) => {
     return res.sendStatus(404);
   });
 };
-
-exports.getUserLikes = (req, res) => {
-  // get
-  // findOne to find the one user
-};
-
-// exports.postUserLikes = (req, res) => {
-//   // post
-//   const userObj = {
-//     users_id: 0,
-//     name: "",
-//     address: "",
-//     id: 0,
-//   };
-//   User.create(userObj).then((user) => {
-//     console.log(user);
-//     res.status(201).json({ user: userObj });
-//   });
-// };

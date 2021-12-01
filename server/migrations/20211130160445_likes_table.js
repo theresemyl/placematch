@@ -4,6 +4,7 @@ exports.up = function (knex) {
     table.string("name").notNullable();
     table.string("address").notNullable();
     table.integer("users_id").unsigned();
+    table.string("swipe_direction").notNullable();
     table
       .foreign("users_id")
       // .unsigned()
