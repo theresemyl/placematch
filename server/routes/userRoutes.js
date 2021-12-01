@@ -52,7 +52,7 @@ router.get("/:id", getUserById);
 // writing to database
 router.post("/likes", postUserLikes);
 
-router.get("/likes", getUserLikes);
+router.get("/all/likes", getUserLikes);
 
 // test - writing to temporary json file
 // router.post("/likes", (req, res) => {
