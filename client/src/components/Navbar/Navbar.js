@@ -48,11 +48,6 @@ const Navbar = ({ user, hasFailedAuth }) => {
       ) : (
         <ul className="list">
           <li className="listItem">
-            <Link className="link" to="dashboard">
-              Dashboard
-            </Link>
-          </li>
-          <li className="listItem">
             <Link className="link" to="login">
               Login
             </Link>

@@ -1,81 +1,75 @@
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 
-class Login extends Component {
-  state = {
-    formData: null,
-    isError: false,
-  };
+function Login(props) {
+  const [formData, setFormData] = useState(null);
+  const [isError, setIsError] = useState(false);
 
-  handleChange = (event) => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [event.target.name]: event.target.value,
-      },
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
     });
   };
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("/api/users/login", this.state.formData)
+      .post("/api/users/login", formData)
       .then((res) => {
         sessionStorage.setItem("token", res.data.token);
-        this.props.onLoginSuccess(res.data.user);
-        this.props.history.push("./swipenow");
+        props.onLoginSuccess(res.data.user);
+        props.history.push("./swipenow");
       })
       .catch((error) => {
         console.log(error);
-        this.setState({ isError: true });
+        setIsError(true);
       });
   };
 
-  render() {
-    return (
-      <main className="login-page">
-        <form className="login" onSubmit={this.handleSubmit}>
-          <h1 className="login__title">Login</h1>
-          <div className="field">
-            {/* <label htmlFor="email" className="field__label">
+  return (
+    <main className="login-page">
+      <form className="login" onSubmit={handleSubmit}>
+        <h1 className="login__title">Login</h1>
+        <div className="field">
+          {/* <label htmlFor="email" className="field__label">
               Email
             </label> */}
-            <input
-              className="field__input"
-              type="email"
-              name="email"
-              id="email"
-              placeholder="email"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="field">
-            {/* <label htmlFor="password" className="field__label">
+          <input
+            className="field__input"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="email"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
+          {/* <label htmlFor="password" className="field__label">
               Password
             </label> */}
-            <input
-              className="field__input"
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-              onChange={this.handleChange}
-            />
+          <input
+            className="field__input"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="password"
+            onChange={handleChange}
+          />
+        </div>
+        <button className="login__button">Login</button>
+        {/* {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>} */}
+        <br />
+        {isError && (
+          <div className="login__message">
+            Wrong password! sign up or go away!!!
           </div>
-          <button className="login__button">Login</button>
-          {/* {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>} */}
-          <br />
-          {this.state.isError && (
-            <div className="login__message">
-              Wrong password! sign up or go away!!!
-            </div>
-          )}
-        </form>
-      </main>
-    );
-  }
+        )}
+      </form>
+    </main>
+  );
 }
 
 export default Login;
