@@ -10,29 +10,11 @@ function Dashboard() {
       .get("./api/users/all/likes")
       .then((response) => {
         let likedList = response.data.filter((like) => {
-          // return like.swipe_direction === "right";
-          if (like.swipe_direction === "right") {
+          if (like.swipe_direction === "right" && like.users_id === 1) {
             return like;
           }
         });
-
         setLikedRestaurants(likedList);
-
-        let correctUser = response.data.filter((user) => {
-          return user.users_id === 1;
-        });
-
-        // if (likedList) {
-        //   console.log("ok");
-        // }
-
-        // if (correctUser) {
-        // setLikedRestaurants(likedList);
-        // }
-        // console.log(likedRestaurants);
-        // console.log(likedList);
-
-        // console.log(correctUser);
       })
       .catch((err) => {
         console.log(err);
@@ -42,14 +24,17 @@ function Dashboard() {
   return (
     <main className="dashboard">
       <br />
-      <br />
       <h1 className="dashboard__title">Dashboard page</h1>
       <p>Welcome to your dashboard!</p>
       <p>Here are your past likes:</p>
       {likedRestaurants.map((like) => (
-        <p>{like.name}</p>
+        <div>
+          <p>
+            <b>{like.name}</b>
+          </p>
+          <p>{like.address}</p>
+        </div>
       ))}
-      {/* {likedRestaurants} */}
     </main>
   );
 }

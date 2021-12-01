@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-/**
- * The navbar gets should display, no matter if the user is logged in or out.
- *  - If the user is logged in, show the logged in user's metadata.
- *  - if the user isn't logged in, give a generic message with instructions.
- */
+import homeicon from "../../assets/icons/home.png";
+import swipearrow from "../../assets/icons/swipearrow.png";
+import heart from "../../assets/icons/heart.png";
+
 const Navbar = ({ user, hasFailedAuth }) => {
   console.log(user);
   return (
@@ -13,6 +12,21 @@ const Navbar = ({ user, hasFailedAuth }) => {
         <ul className="list">
           <li className="listItem">
             Logged in as <b>{user.email}</b>
+          </li>
+          <br />
+          <li className="listItem">
+            <img src={homeicon} alt="home icon" className="navbar__icon" />
+          </li>
+
+          <li className="listItem">
+            <img src={heart} alt="heart icon" className="navbar__icon" />
+          </li>
+          <li className="listItem">
+            <img
+              src={swipearrow}
+              alt="swipe arrow icon"
+              className="navbar__icon"
+            />
           </li>
           <br />
           <li className="listItem">

@@ -73,6 +73,7 @@ function SwipeNow() {
         <div>
           <br />
           <br />
+          <br />
           <h1>Who would you like to swipe with today?</h1>
           <form onSubmit={handleSubmit}>
             <input

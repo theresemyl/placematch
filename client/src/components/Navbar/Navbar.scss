@@ -1,4 +1,18 @@
+// .navbar {
+//   display: flex;
+//   align-items: flex-end;
+// justify-content: flex-end;
+// }
+
 .listItem {
   display: inline;
   margin: 0 10px;
+}
+
+.navbar__icon {
+  filter: grayscale(100%);
+  &:hover {
+    filter: none;
+    cursor: pointer;
+  }
 }
