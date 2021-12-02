@@ -1,26 +1,45 @@
 import "./App.scss";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-// import { Component } from "react";
 import React, { useState, useEffect } from "react";
-import Login from "./pages/LogIn/Login";
+import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
-// import ChooseLocation from "./pages/ChooseLocation/ChooseLocation";
-// import ChooseFriend from "./pages/ChooseFriend/ChooseFriend";
 import SwipeNow from "./pages/SwipeNow/SwipeNow";
-// import NewMatch from "./pages/NewMatch/NewMatch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Logout from "./pages/Logout/Logout";
+import axios from "axios";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState(0);
+
+  const token = sessionStorage.getItem("token");
+  axios
+    .get("http://localhost:8080/api/users/current", {
+      headers: {
+        Authorization: `token ${token}`,
+      },
+    })
+    .then((response) => {
+      const { name, id } = response.data.user;
+      // console.log(name, id);
+      setUserName(name);
+      setUserId(id);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  // console.log(userName);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
       setCurrentUser(jwt_decode(token));
+    } else {
+      setCurrentUser(null);
     }
   }, []);
 
@@ -56,13 +75,22 @@ function App() {
                 />
               )}
             />
-            <Route path={"/logout"} component={Logout} />
-
+            <Route
+              path={"/logout"}
+              component={Logout}
+              onClick={() => handleLogout()}
+            />
             {/* <Route path="/login" exact component={Login} /> */}
             <Route path="/signup" exact component={SignUp} />
-
-            <ProtectedRoute path="/swipenow" exact component={SwipeNow} />
-
+            <ProtectedRoute
+              path="/swipenow"
+              exact
+              component={SwipeNow}
+              // userName={userName}
+              // userId={userId}
+              // setUserName={setUserName}
+              // setUserId={setUserId}
+            />
             <ProtectedRoute path={"/dashboard"} component={Dashboard} />
           </Switch>
         </BrowserRouter>

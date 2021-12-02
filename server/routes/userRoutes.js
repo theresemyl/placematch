@@ -7,6 +7,7 @@ const uniqid = require("uniqid");
 // router.route("/").get(userControllers.index);
 
 const auth = require("../middleware/auth");
+
 const {
   signInUser,
   signUpUser,
@@ -40,6 +41,7 @@ router.post("/login", signInUser);
  * Authentication required
  */
 router.get("/current", auth, getCurrentUser);
+// !!!!!!!
 
 // get all users
 // "/api/users/all"

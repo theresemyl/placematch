@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "testing20@gmail.com",
+    "password": "testing123"
+}
+
+###
+
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "testing@gmail.com",
+    "password": "testing123"
+}
+
+###
+
+// Replace the long string with the token 
+// string you get from the HTTP request above.
+
+GET http://localhost:8080/api/users/current HTTP/1.1
+Content-Type: application/json
+Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhbmFuYUBmcnVpdC5jb20iLCJpYXQiOjE2Mzg0MDE1ODAsImV4cCI6MTYzODQ4Nzk4MH0.bdtSfqr3Rqlpbx17xXfsKkwKVGmQ2GbzFvmL4yzlvd0
+
+###
+
+POST http://localhost:8080/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "testing@gmail.com",
+    "password": "noaaae"
+}

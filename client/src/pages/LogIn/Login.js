@@ -31,8 +31,14 @@ function Login(props) {
 
   return (
     <main className="login-page">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <form className="login" onSubmit={handleSubmit}>
-        <h1 className="login__title">Login</h1>
+        <h1 className="login__title">Log in</h1>
         <div className="field">
           {/* <label htmlFor="email" className="field__label">
               Email
@@ -62,12 +68,16 @@ function Login(props) {
         <button className="login__button">Login</button>
         {/* {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>} */}
         <br />
+        <br />
         {isError && (
           <div className="login__message">
             Wrong password! sign up or go away!!!
           </div>
         )}
       </form>
+      <p>
+        No account yet? <Link to="/signup">Sign up</Link>!
+      </p>
     </main>
   );
 }

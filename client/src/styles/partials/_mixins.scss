@@ -1,0 +1,21 @@
+@use "./variables" as *;
+
+// Mixins
+@mixin flex($justify, $align) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: wrap;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@mixin link-default {
+  text-decoration: none;
+  color: #fff;
+}

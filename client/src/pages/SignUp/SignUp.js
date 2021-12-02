@@ -11,7 +11,7 @@ function Signup(props) {
     event.preventDefault();
 
     axios
-      .post("./api/users/signup", {
+      .post("http://localhost:8080/api/users/signup", {
         email: event.target.email.value,
         username: event.target.username.value,
         name: event.target.name.value,
@@ -25,13 +25,19 @@ function Signup(props) {
         props.history.push("./login");
       })
       .catch((error) => {
-        setError(error);
+        console.log(error.response.data);
+        setError(error.response.data);
         setSuccess(false);
       });
   };
 
   return (
     <main className="signup-page">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <form className="signup" onSubmit={handleSubmit}>
         <h1 className="signup__title">Sign up</h1>
 

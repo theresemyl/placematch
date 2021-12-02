@@ -3,7 +3,7 @@ import TinderCard from "react-tinder-card";
 import axios from "axios";
 import "./SwipeNow.scss";
 
-function SwipeNow() {
+function SwipeNow(props) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
@@ -21,6 +21,9 @@ function SwipeNow() {
         console.log(err);
       });
   }, []);
+
+  // console.log(userName, userId);
+  // console.log(props);
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
@@ -65,6 +68,24 @@ function SwipeNow() {
 
   const outOfFrame = (name) => {
     // console.log(name + " left the screen!");
+    axios
+      .get("./api/users/all/likes")
+      .then((response) => {
+        // let likedList = response.data.filter((like) => {
+        //   if (like.swipe_direction === "right" && like.users_id === 1 && like.users_id === 2) {
+        //     return like;
+        //   }
+        // });
+
+        const lastItem = response.data[response.data.length - 1];
+        console.log(lastItem);
+        console.log(response.data);
+        // if NEW SWIPE,
+        // setLikedRestaurants(likedList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
