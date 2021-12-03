@@ -3,10 +3,14 @@ import TinderCard from "react-tinder-card";
 import axios from "axios";
 import "./SwipeNow.scss";
 
-function SwipeNow(props) {
+function SwipeNow({ userName, userId }) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
+
+  console.log(userName, userId);
+  // console.log(props);
+  // console.log(userName);
 
   useEffect(() => {
     axios
@@ -22,15 +26,35 @@ function SwipeNow(props) {
       });
   }, []);
 
-  // console.log(userName, userId);
-  // console.log(props);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .get("./api/users/all")
+      .then((response) => {
+        let findUser = response.data.find((name) => {
+          return name.username === event.target.name.value;
+        });
+        if (findUser) {
+          // setFoundUser(findUser.username);
+          setFoundUser(findUser.id);
+        } else {
+          alert("user not found");
+          setFoundUser(null);
+        }
+        // console.log(foundUser.id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
-
+    console.log(userId);
     axios
       .post(`./api/users/likes`, {
-        users_id: 1,
+        users_id: userId,
         name: name,
         address: restaurant.vicinity,
         // id: restaurantId,
@@ -45,43 +69,29 @@ function SwipeNow(props) {
       });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    axios
-      .get("./api/users/all")
-      .then((response) => {
-        let findUser = response.data.find((name) => {
-          return name.username === event.target.name.value;
-        });
-        if (findUser) {
-          setFoundUser(findUser.username);
-        } else {
-          alert("user not found");
-          setFoundUser(null);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const outOfFrame = (name) => {
     // console.log(name + " left the screen!");
+    console.log(foundUser);
+    console.log(userName, userId);
+
     axios
       .get("./api/users/all/likes")
       .then((response) => {
-        // let likedList = response.data.filter((like) => {
-        //   if (like.swipe_direction === "right" && like.users_id === 1 && like.users_id === 2) {
-        //     return like;
-        //   }
-        // });
-
         const lastItem = response.data[response.data.length - 1];
-        console.log(lastItem);
-        console.log(response.data);
-        // if NEW SWIPE,
-        // setLikedRestaurants(likedList);
+        // console.log(lastItem);
+
+        response.data.find((like) => {
+          if (
+            like.name === lastItem.name &&
+            lastItem.swipe_direction === "right" &&
+            like.swipe_direction === "right" &&
+            like.users_id === foundUser
+          ) {
+            console.log(response.data);
+            console.log(like);
+            console.log(`you matched with user ID: ${foundUser}`);
+          }
+        });
       })
       .catch((err) => {
         console.log(err);

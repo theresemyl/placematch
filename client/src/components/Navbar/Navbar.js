@@ -5,37 +5,15 @@ import swipearrow from "../../assets/icons/swipearrow.png";
 import heart from "../../assets/icons/heart.png";
 import axios from "axios";
 
-const Navbar = ({ user, hasFailedAuth }) => {
-  // console.log(user);
-  // const token = sessionStorage.getItem("token");
-  // console.log(token);
-  // let currentUserName = "";
-
-  // axios
-  //   .get("http://localhost:8080/api/users/current", {
-  //     headers: {
-  //       Authorization: `token ${token}`,
-  //     },
-  //   })
-  //   .then((response) => {
-  //     // currentUser: {
-  //     //   currentUserName = res.data.user.name,
-  //     //   currentUserId = res.data.user.id,
-  //     //   currentUserEmail = res.data.user.email
-  //     // }
-  //     const { name, id, email } = response.data.user;
-  //     console.log(name, id, email);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
+const Navbar = ({ user, userName }) => {
+  // console.log(userName);
 
   return (
     <div className="navbar">
       {user ? (
         <ul className="list">
           <li className="listItem">
-            Logged in as <b>{user.email}</b>
+            Logged in as <b>{userName}</b>
           </li>
           {/* <br />
           <li className="listItem">

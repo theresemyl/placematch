@@ -1,8 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import SwipeNow from "../../pages/SwipeNow/SwipeNow";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({
+  component: Component,
+  userName,
+  userId,
+  ...rest
+}) => {
   const token = sessionStorage.getItem("token");
+
   return (
     <Route
       {...rest}
@@ -15,7 +22,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
             }}
           />
         ) : (
-          <Component {...routeProps} />
+          <Component {...routeProps} userName={userName} userId={userId} />
         )
       }
     />

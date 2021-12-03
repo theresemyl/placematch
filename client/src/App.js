@@ -61,7 +61,7 @@ function App() {
       <br />
       <div className="app__container">
         <BrowserRouter>
-          <Navbar user={currentUser} />
+          <Navbar user={currentUser} userName={userName} userId={userId} />
           <Switch>
             <Redirect from="/" exact to="/login" />
             <Route
@@ -82,12 +82,20 @@ function App() {
             />
             {/* <Route path="/login" exact component={Login} /> */}
             <Route path="/signup" exact component={SignUp} />
-            <ProtectedRoute
+            {/* <Route
               path="/swipenow"
               exact
+              render={(routerProps) => (
+                <SwipeNow userName={userName} userId={userId} />
+              )}
+            /> */}
+            <ProtectedRoute
+              exact
+              path="/swipenow"
               component={SwipeNow}
-              // userName={userName}
-              // userId={userId}
+              userName={userName}
+              userId={userId}
+
               // setUserName={setUserName}
               // setUserId={setUserId}
             />
