@@ -77,14 +77,16 @@ function SwipeNow({ userName, userId }) {
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
     // console.log(userId);
+    console.log(restaurant.photos[0].photo_reference);
     axios
       .post(`./api/users/likes`, {
         users_id: userId,
         name: name,
         address: restaurant.vicinity,
-        // id: restaurantId,
         swipe_direction: direction,
-        // liked: true,
+        lat: restaurant.geometry.location.lat,
+        lng: restaurant.geometry.location.lng,
+        photo: restaurant.photos[0].photo_reference,
       })
       .then(() => {
         // alert("posted");
@@ -122,7 +124,11 @@ function SwipeNow({ userName, userId }) {
             setOpen(true);
             console.log(open);
             // after match, write an axios post to post to matches database
-            //
+            // for post:
+            // name of restaurant
+            // address, lat, lng, photo
+            // matched_user_id1
+            // matched_user_id2
           }
         });
       })
@@ -150,6 +156,9 @@ function SwipeNow({ userName, userId }) {
     <div>
       {foundUser === null ? (
         <div>
+          <br />
+          <br />
+          <br />
           <br />
           <br />
           <br />
@@ -182,9 +191,15 @@ function SwipeNow({ userName, userId }) {
               preventSwipe={["up", "down"]}
             >
               <div className="card">
-                <img
+                {/* <img
                   src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png?crop=1.00xw:1.00xh;0,0&resize=480:*"
                   alt="pizza"
+                /> */}
+
+                <img
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${restaurant.photos[0].photo_reference}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
+                  alt="restaurant"
+                  className="swipenow__photo"
                 />
                 <h3>{restaurant.name}</h3>
                 <h3>{restaurant.vicinity}</h3>

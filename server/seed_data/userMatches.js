@@ -1,6 +1,5 @@
 module.exports = [
   {
-    users_id: 1,
     id: 1,
     name: "Tacofino",
     address: "Gastown",
@@ -8,9 +7,10 @@ module.exports = [
     lat: 49.25,
     lng: -123.11,
     photo: "lalala",
+    matched_user_id1: 15,
+    matched_user_id2: 25,
   },
   {
-    users_id: 1,
     id: 2,
     name: "Vij's",
     address: "Fraser",
@@ -18,5 +18,7 @@ module.exports = [
     lat: 49.25,
     lng: -123.11,
     photo: "lalala",
+    matched_user_id1: 35,
+    matched_user_id2: 45,
   },
 ];

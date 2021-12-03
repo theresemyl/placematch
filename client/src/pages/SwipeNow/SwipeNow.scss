@@ -22,13 +22,16 @@
   // width: 90vw;
   // max-width: 260px;
   height: 550px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 }
 
 .card {
   position: relative;
   margin: 0 auto;
   width: 420px;
-  min-height: 350px;
+  height: 450px;
   overflow: hidden;
   text-align: center;
   // background-color: #ffe4ed;
@@ -38,4 +41,11 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.swipenow__photo {
+  min-height: 320px;
+  max-height: 320px;
+  width: 100%;
+  overflow: hidden;
 }

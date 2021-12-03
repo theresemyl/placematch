@@ -2,6 +2,7 @@
 $regular: "Montserrat Regular";
 $light: "Montserrat Light";
 $medium: "Montserrat Medium";
+$bold: "Montserrat Bold";
 
 // Fonts
 @font-face {
@@ -17,4 +18,9 @@ $medium: "Montserrat Medium";
 @font-face {
   font-family: "Montserrat Medium";
   src: url("../../assets/fonts/Montserrat/Montserrat-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat Bold";
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
 }

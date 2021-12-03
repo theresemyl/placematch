@@ -1,3 +1,6 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
 .home {
   height: 100%;
   width: 100%;
@@ -9,5 +12,6 @@
 
 a {
   text-decoration: none;
-  color: black;
+  color: #8e5ea3;
+  font-family: $bold;
 }
