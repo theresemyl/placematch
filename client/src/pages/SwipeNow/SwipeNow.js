@@ -1,14 +1,34 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import axios from "axios";
 import "./SwipeNow.scss";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: 3,
+  boxShadow: 24,
+  p: 4,
+};
 
 function SwipeNow({ userName, userId }) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
 
-  console.log(userName, userId);
+  const [open, setOpen] = useState(false);
+
+  const [match, setMatch] = useState(false);
+  // console.log(userName, userId);
   // console.log(props);
   // console.log(userName);
 
@@ -51,7 +71,7 @@ function SwipeNow({ userName, userId }) {
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
-    console.log(userId);
+    // console.log(userId);
     axios
       .post(`./api/users/likes`, {
         users_id: userId,
@@ -71,8 +91,8 @@ function SwipeNow({ userName, userId }) {
 
   const outOfFrame = (name) => {
     // console.log(name + " left the screen!");
-    console.log(foundUser);
-    console.log(userName, userId);
+    // console.log(foundUser);
+    // console.log(userName, userId);
 
     axios
       .get("./api/users/all/likes")
@@ -89,8 +109,10 @@ function SwipeNow({ userName, userId }) {
           ) {
             console.log(response.data);
             console.log(like);
-            alert(`you matched with user ID: ${foundUser}`);
-
+            console.log(`you matched with user ID: ${foundUser}`);
+            setMatch(true);
+            setOpen(true);
+            console.log(open);
             // after match, write an axios post to post to matches database
             //
           }
@@ -100,6 +122,21 @@ function SwipeNow({ userName, userId }) {
         console.log(err);
       });
   };
+  // let handleOpen;
+  // setTimeout(
+  // const handleOpen = () => {
+  //   if (match === true) {
+  //     setOpen(true);
+  //     console.log("match is true, set open to true");
+  //   } else {
+  //     setOpen(false);
+  //   }
+  // };
+  //   1000
+  // );
+
+  // const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -146,6 +183,26 @@ function SwipeNow({ userName, userId }) {
               </div>
             </TinderCard>
           ))}
+
+          <div>
+            {/* <Button onClick={handleOpen}>Open modal</Button> */}
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  You and {foundUser} matched!
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Congratulations here are the details on the restaurant that
+                  you matched with.
+                </Typography>
+              </Box>
+            </Modal>
+          </div>
         </div>
       )}
 

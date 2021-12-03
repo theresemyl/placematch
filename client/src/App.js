@@ -44,7 +44,6 @@ function App() {
   }, []);
 
   const handleLogin = (user) => {
-    console.log(user);
     setCurrentUser(user);
   };
 
