@@ -13,6 +13,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
+  textAlign: "center",
   width: 400,
   bgcolor: "background.paper",
   borderRadius: 3,
@@ -23,6 +24,7 @@ const style = {
 function SwipeNow({ userName, userId }) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
+  const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
 
   const [open, setOpen] = useState(false);
@@ -58,9 +60,12 @@ function SwipeNow({ userName, userId }) {
         if (findUser) {
           // setFoundUser(findUser.username);
           setFoundUser(findUser.id);
+          setFoundUserName(findUser.name);
         } else {
           alert("user not found");
           setFoundUser(null);
+
+          setFoundUserName(null);
         }
         // console.log(foundUser.id);
       })
@@ -83,6 +88,9 @@ function SwipeNow({ userName, userId }) {
       })
       .then(() => {
         // alert("posted");
+        console.log(restaurant);
+        console.log(name);
+        setMatch(name);
       })
       .catch((err) => {
         console.log(err);
@@ -109,7 +117,7 @@ function SwipeNow({ userName, userId }) {
           ) {
             console.log(response.data);
             console.log(like);
-            console.log(`you matched with user ID: ${foundUser}`);
+            console.log(`you matched with user ID: ${foundUserName}`);
             setMatch(true);
             setOpen(true);
             console.log(open);
@@ -162,7 +170,7 @@ function SwipeNow({ userName, userId }) {
         <div className="cardContainer">
           <h2>
             You are currently swiping with
-            <i> {foundUser}!</i>
+            <i> {foundUserName}!</i>
           </h2>
           <br />
           {restaurantList.map((restaurant) => (
@@ -194,10 +202,12 @@ function SwipeNow({ userName, userId }) {
             >
               <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                  You and {foundUser} matched!
+                  🎉
+                  <br />
+                  You and <b>{foundUserName}</b> matched!
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Congratulations here are the details on the restaurant that
+                  Congratulations! Here are the details on the restaurant that
                   you matched with.
                 </Typography>
               </Box>

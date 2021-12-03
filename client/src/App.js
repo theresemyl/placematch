@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Logout from "./pages/Logout/Logout";
+import Home from "./pages/Home/Home";
 import axios from "axios";
 
 function App() {
@@ -62,7 +63,8 @@ function App() {
         <BrowserRouter>
           <Navbar user={currentUser} userName={userName} userId={userId} />
           <Switch>
-            <Redirect from="/" exact to="/login" />
+            <Redirect from="/" exact to="/home" />
+            <Route path="/home" component={Home} />
             <Route
               path={"/login"}
               render={(routerProps) => (
