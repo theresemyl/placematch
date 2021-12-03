@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function Dashboard() {
+function Dashboard({ userName, userId }) {
   const [likedRestaurants, setLikedRestaurants] = useState([]);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ function Dashboard() {
       .get("./api/users/all/likes")
       .then((response) => {
         let likedList = response.data.filter((like) => {
-          if (like.swipe_direction === "right" && like.users_id === 1) {
+          if (like.swipe_direction === "right" && like.users_id === userId) {
             return like;
           }
         });

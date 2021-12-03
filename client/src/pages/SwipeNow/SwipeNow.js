@@ -62,7 +62,7 @@ function SwipeNow({ userName, userId }) {
         // liked: true,
       })
       .then(() => {
-        alert("posted");
+        // alert("posted");
       })
       .catch((err) => {
         console.log(err);
@@ -89,7 +89,10 @@ function SwipeNow({ userName, userId }) {
           ) {
             console.log(response.data);
             console.log(like);
-            console.log(`you matched with user ID: ${foundUser}`);
+            alert(`you matched with user ID: ${foundUser}`);
+
+            // after match, write an axios post to post to matches database
+            //
           }
         });
       })

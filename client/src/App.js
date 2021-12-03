@@ -99,7 +99,12 @@ function App() {
               // setUserName={setUserName}
               // setUserId={setUserId}
             />
-            <ProtectedRoute path={"/dashboard"} component={Dashboard} />
+            <ProtectedRoute
+              path={"/dashboard"}
+              component={Dashboard}
+              userName={userName}
+              userId={userId}
+            />
           </Switch>
         </BrowserRouter>
       </div>
