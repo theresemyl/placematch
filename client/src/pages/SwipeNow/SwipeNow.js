@@ -14,6 +14,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   textAlign: "center",
   width: 400,
+  // fontFamily: "Montserrat Regular",
   bgcolor: "background.paper",
   borderRadius: 3,
   boxShadow: 24,
@@ -25,9 +26,7 @@ function SwipeNow({ userName, userId }) {
   const [foundUser, setFoundUser] = useState(null);
   const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
-
   const [open, setOpen] = useState(false);
-
   const [match, setMatch] = useState(false);
   // console.log(userName, userId);
   // console.log(props);
@@ -115,18 +114,9 @@ function SwipeNow({ userName, userId }) {
             like.swipe_direction === "right" &&
             like.users_id === foundUser
           ) {
-            // console.log(response.data);
-            // console.log(like);
-            // console.log(`you matched with user ID: ${foundUserName}`);
             // setMatch(true);
             setOpen(true);
             // console.log(open);
-            // after match, write an axios post to post to matches database
-            // for post:
-            // name of restaurant
-            // address, lat, lng, photo
-            // matched_user_id1
-            // matched_user_id2
             console.log(userId, userName);
             console.log(lastItem);
             console.log(foundUser, foundUserName);
@@ -158,20 +148,7 @@ function SwipeNow({ userName, userId }) {
         console.log(err);
       });
   };
-  // let handleOpen;
-  // setTimeout(
-  // const handleOpen = () => {
-  //   if (match === true) {
-  //     setOpen(true);
-  //     console.log("match is true, set open to true");
-  //   } else {
-  //     setOpen(false);
-  //   }
-  // };
-  //   1000
-  // );
 
-  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
@@ -241,11 +218,13 @@ function SwipeNow({ userName, userId }) {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   🎉
                   <br />
-                  You and <b>{foundUserName}</b> matched!
+                  <b>You and {foundUserName} matched!</b>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Congratulations! Here are the details on the restaurant that
-                  you matched with.
+                  <b>
+                    Congratulations! Here are the details on the restaurant that
+                    you matched with.
+                  </b>
                 </Typography>
               </Box>
             </Modal>

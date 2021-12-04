@@ -12,6 +12,7 @@ import Logout from "./pages/Logout/Logout";
 import Home from "./pages/Home/Home";
 import axios from "axios";
 import Matches from "./pages/Matches/Matches";
+import ChooseLocation from "./pages/ChooseLocation/ChooseLocation";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -93,13 +94,17 @@ function App() {
             /> */}
             <ProtectedRoute
               exact
+              path="/location"
+              component={ChooseLocation}
+              userName={userName}
+              userId={userId}
+            />
+            <ProtectedRoute
+              exact
               path="/swipenow"
               component={SwipeNow}
               userName={userName}
               userId={userId}
-
-              // setUserName={setUserName}
-              // setUserId={setUserId}
             />
             <ProtectedRoute
               path={"/dashboard"}

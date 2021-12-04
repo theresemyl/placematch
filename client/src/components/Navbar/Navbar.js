@@ -43,6 +43,11 @@ const Navbar = ({ user, userName }) => {
           </li>
           <br />
           <li className="listItem">
+            <Link className="link" to="location">
+              Location
+            </Link>
+          </li>
+          <li className="listItem">
             <Link className="link" to="swipenow">
               Swipe Now
             </Link>

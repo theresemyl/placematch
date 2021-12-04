@@ -13,6 +13,9 @@
 //   position: relative;
 // }
 
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
 .swipe {
   position: absolute;
 }
@@ -37,6 +40,7 @@
   // background-color: #ffe4ed;
   // background-color: rgb(180, 212, 218);
   background-color: #fce0e7;
+  // backdrop-filter: blur(10px);
   border-radius: 20px;
   &:hover {
     cursor: pointer;
