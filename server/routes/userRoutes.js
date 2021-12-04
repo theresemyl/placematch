@@ -24,59 +24,26 @@ const {
   getUserLikes,
 } = require("../controllers/userLikesControllers");
 
-// const { postJson } = require("../controllers/postJsonControllers");
+const {
+  postUserMatches,
+  getUserMatches,
+} = require("../controllers/userMatchesControllers");
 
-/**
- * POST /api/users/signup
- */
+// signup, login, get user that's logged in
 router.post("/signup", signUpUser);
-
-/**
- * POST /api/users/login
- */
 router.post("/login", signInUser);
-
-/**
- * @api {post} /api/users/current
- * Authentication required
- */
 router.get("/current", auth, getCurrentUser);
-// !!!!!!!
 
-// get all users
-// "/api/users/all"
+// get users
 router.get("/all", getUsers);
-
 router.get("/:id", getUserById);
 
-// router.get("/:id/likes", getUserLikes);
-
-// writing to database
+// writing to & getting LIKES database
 router.post("/likes", postUserLikes);
-
 router.get("/all/likes", getUserLikes);
 
-// test - writing to temporary json file
-// router.post("/likes", (req, res) => {
-//   console.log("req body", req.body);
-//   // console.log("res body", res.body);
-//   const { users_id, name, address, id } = req.body;
-
-//   const newLike = {
-//     users_id,
-//     name,
-//     address,
-//     id,
-//   };
-
-//   fs.writeFile("./data/tempLikesData.json", JSON.stringify(newLike), (err) => {
-//     // if (err) {
-//     //   res.status(500).send(err);
-//     // }
-//     console.log("file updated");
-//     res.status(201).json(newLike);
-//     // res.send("hello");
-//   });
-// });
+// writing to & getting MATCHES database
+router.post("/matches", postUserMatches);
+router.get("/all/matches", getUserMatches);
 
 module.exports = router;

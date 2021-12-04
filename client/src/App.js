@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Logout from "./pages/Logout/Logout";
 import Home from "./pages/Home/Home";
 import axios from "axios";
+import Matches from "./pages/Matches/Matches";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -103,6 +104,12 @@ function App() {
             <ProtectedRoute
               path={"/dashboard"}
               component={Dashboard}
+              userName={userName}
+              userId={userId}
+            />
+            <ProtectedRoute
+              path={"/matches"}
+              component={Matches}
               userName={userName}
               userId={userId}
             />

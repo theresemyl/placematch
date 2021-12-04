@@ -4,7 +4,6 @@ import axios from "axios";
 import "./SwipeNow.scss";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
@@ -59,12 +58,11 @@ function SwipeNow({ userName, userId }) {
         });
         if (findUser) {
           // setFoundUser(findUser.username);
-          setFoundUser(findUser.id);
           setFoundUserName(findUser.name);
+          setFoundUser(findUser.id);
         } else {
           alert("user not found");
           setFoundUser(null);
-
           setFoundUserName(null);
         }
         // console.log(foundUser.id);
@@ -117,18 +115,42 @@ function SwipeNow({ userName, userId }) {
             like.swipe_direction === "right" &&
             like.users_id === foundUser
           ) {
-            console.log(response.data);
-            console.log(like);
-            console.log(`you matched with user ID: ${foundUserName}`);
-            setMatch(true);
+            // console.log(response.data);
+            // console.log(like);
+            // console.log(`you matched with user ID: ${foundUserName}`);
+            // setMatch(true);
             setOpen(true);
-            console.log(open);
+            // console.log(open);
             // after match, write an axios post to post to matches database
             // for post:
             // name of restaurant
             // address, lat, lng, photo
             // matched_user_id1
             // matched_user_id2
+            console.log(userId, userName);
+            console.log(lastItem);
+            console.log(foundUser, foundUserName);
+            axios
+              .post(`./api/users/matches`, {
+                date: Date.now(),
+                name: lastItem.name,
+                address: lastItem.address,
+                swipe_direction: lastItem.swipe_direction,
+                lat: lastItem.lat,
+                lng: lastItem.lng,
+                photo: lastItem.photo,
+                matched_user_id1: userId,
+                matched_user_id2: foundUser,
+                matched_user_name1: userName,
+                matched_user_name2: foundUserName,
+              })
+              .then(() => {
+                // alert("posted");
+                console.log(lastItem);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         });
       })

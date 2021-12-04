@@ -1,5 +1,5 @@
 const db = require("../db/connection");
-const tableName = "likes";
+const tableName = "matches";
 const { v4: uuidv4 } = require("uuid");
 
 const del = (id) => db(tableName).where({ id }).del();
