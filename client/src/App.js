@@ -19,6 +19,11 @@ function App() {
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(0);
 
+  // for choosing location
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [radius, setRadius] = useState(0);
+
   const token = sessionStorage.getItem("token");
   axios
     .get("http://localhost:8080/api/users/current", {
@@ -96,8 +101,10 @@ function App() {
               exact
               path="/location"
               component={ChooseLocation}
-              userName={userName}
-              userId={userId}
+              lat={lat}
+              lng={lng}
+              setLat={setLat}
+              setLng={setLng}
             />
             <ProtectedRoute
               exact
@@ -105,6 +112,8 @@ function App() {
               component={SwipeNow}
               userName={userName}
               userId={userId}
+              lat={lat}
+              lng={lng}
             />
             <ProtectedRoute
               path={"/dashboard"}

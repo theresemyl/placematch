@@ -33,7 +33,7 @@ function Dashboard({ userName, userId }) {
 
       <p>Here are your past likes:</p>
       {likedRestaurants.map((like) => (
-        <div>
+        <div key={like.name}>
           <p>
             <b>{like.name}</b>
           </p>

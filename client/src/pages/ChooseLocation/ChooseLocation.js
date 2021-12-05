@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -22,8 +22,13 @@ let center = {
   lng: -123.116226,
 };
 
+let newCoords = {
+  lat: 49.246292,
+  lng: -123.116226,
+};
+
 const options = {
-  //   styles: mapStyles,
+  styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
   strokeColor: "#FF0000",
@@ -32,14 +37,14 @@ const options = {
   fillColor: "#FF0000",
   fillOpacity: 0.35,
   clickable: false,
-  draggable: false,
+  draggable: true,
   editable: false,
   visible: true,
   radius: 3000,
-  //   zIndex: 1,
+  zIndex: 1,
 };
 
-function ChooseLocation(props) {
+function ChooseLocation(props, { lat, lng, setLat, setLng }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0",
     libraries,
@@ -50,6 +55,16 @@ function ChooseLocation(props) {
   const handleClick = () => {
     props.history.push("./swipenow");
   };
+
+  //   useEffect(() => {
+
+  //   }, []);
+
+  console.log(lat, lng);
+
+  //   const handleChange = (event) => {
+  //     console.log(event);
+  //   };
 
   if (loadError) {
     return "Sorry, error loading map!";
@@ -77,7 +92,18 @@ function ChooseLocation(props) {
             },
             // console.log(event.latLng.lat()),
           ]);
+          //   handleChange();
+          //   const newLat = Number(event.latLng.lat());
+          //   const newLng = Number(event.latLng.lng());
 
+          newCoords = {
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng(),
+          };
+
+          //   setLat(center.lat);
+          //   setLng(center.lng);
+          //   console.log(lat, lng);
           center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
           //   console.log(center);
         }}
@@ -96,17 +122,16 @@ function ChooseLocation(props) {
         <Marker
           key={marker.time}
           position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
-          //   icon="🍽️"
-          //   icon={{
-          //     url: "https://w7.pngwing.com/pngs/731/25/png-transparent-location-icon-computer-icons-google-map-maker-marker-pen-cartodb-map-marker-heart-logo-color-thumbnail.png",
-          //     scaledSize: new window.google.maps.Size(30, 30),
-          //   }}
           visible={true}
           title={"marker"}
         />
       </GoogleMap>
       <br />
       <button onClick={handleClick}>Click to start swiping!</button>
+      <br />
+      <p>
+        {lat}, {lng}
+      </p>
     </div>
   );
 }

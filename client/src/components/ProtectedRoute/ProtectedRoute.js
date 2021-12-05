@@ -6,6 +6,10 @@ const ProtectedRoute = ({
   component: Component,
   userName,
   userId,
+  lat,
+  lng,
+  setLat,
+  setLng,
   ...rest
 }) => {
   const token = sessionStorage.getItem("token");
@@ -22,7 +26,15 @@ const ProtectedRoute = ({
             }}
           />
         ) : (
-          <Component {...routeProps} userName={userName} userId={userId} />
+          <Component
+            {...routeProps}
+            userName={userName}
+            userId={userId}
+            lat={lat}
+            lng={lng}
+            setLat={setLat}
+            setLng={setLng}
+          />
         )
       }
     />

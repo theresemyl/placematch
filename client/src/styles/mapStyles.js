@@ -1,28 +1,19 @@
 export default [
   {
-    featureType: "administrative",
-    elementType: "all",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
     featureType: "landscape",
     elementType: "all",
     stylers: [
       {
-        visibility: "simplified",
+        hue: "#FF007B",
       },
       {
-        hue: "#0066ff",
+        saturation: 59.80000000000001,
       },
       {
-        saturation: 74,
+        lightness: 21,
       },
       {
-        lightness: 100,
+        gamma: 1,
       },
     ],
   },
@@ -31,43 +22,31 @@ export default [
     elementType: "all",
     stylers: [
       {
-        visibility: "simplified",
-      },
-    ],
-  },
-  {
-    featureType: "road",
-    elementType: "all",
-    stylers: [
-      {
-        visibility: "simplified",
-      },
-    ],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "all",
-    stylers: [
-      {
-        visibility: "off",
+        hue: "#FF00AF",
       },
       {
-        weight: 0.6,
+        saturation: 32.599999999999994,
       },
       {
-        saturation: -85,
+        lightness: 20.599999999999994,
       },
       {
-        lightness: 61,
+        gamma: 1,
       },
     ],
   },
   {
     featureType: "road.highway",
-    elementType: "geometry",
+    elementType: "all",
     stylers: [
       {
-        visibility: "on",
+        hue: "#FFAF00",
+      },
+      {
+        lightness: 50.80000000000001,
+      },
+      {
+        gamma: 1,
       },
     ],
   },
@@ -76,7 +55,13 @@ export default [
     elementType: "all",
     stylers: [
       {
-        visibility: "off",
+        hue: "#FFE800",
+      },
+      {
+        lightness: 8.600000000000009,
+      },
+      {
+        gamma: 1,
       },
     ],
   },
@@ -85,16 +70,16 @@ export default [
     elementType: "all",
     stylers: [
       {
-        visibility: "on",
+        hue: "#FFD900",
       },
-    ],
-  },
-  {
-    featureType: "transit",
-    elementType: "all",
-    stylers: [
       {
-        visibility: "simplified",
+        saturation: 44.79999999999998,
+      },
+      {
+        lightness: 3.6000000000000085,
+      },
+      {
+        gamma: 1,
       },
     ],
   },
@@ -103,16 +88,13 @@ export default [
     elementType: "all",
     stylers: [
       {
-        visibility: "simplified",
+        hue: "#0078FF",
       },
       {
-        color: "#5f94ff",
+        saturation: 24.200000000000003,
       },
       {
-        lightness: 26,
-      },
-      {
-        gamma: 5.86,
+        gamma: 1,
       },
     ],
   },
