@@ -35,25 +35,21 @@ const options = {
   draggable: false,
   editable: false,
   visible: true,
-  radius: 1000,
+  radius: 3000,
   //   zIndex: 1,
 };
 
-const onLoad = (circle) => {
-  console.log("Circle onLoad circle: ", circle);
-};
-
-const onUnmount = (circle) => {
-  console.log("Circle onUnmount circle: ", circle);
-};
-
-function ChooseLocation() {
+function ChooseLocation(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0",
     libraries,
   });
 
   const [marker, setMarker] = useState([]);
+
+  const handleClick = () => {
+    props.history.push("./swipenow");
+  };
 
   if (loadError) {
     return "Sorry, error loading map!";
@@ -65,7 +61,7 @@ function ChooseLocation() {
 
   return (
     <div>
-      <h1>location</h1>
+      <h1>Choose location</h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
@@ -83,18 +79,10 @@ function ChooseLocation() {
           ]);
 
           center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+          //   console.log(center);
         }}
       >
-        <Circle
-          // optional
-          onLoad={onLoad}
-          // optional
-          onUnmount={onUnmount}
-          // required
-          center={center}
-          // required
-          options={options}
-        />
+        <Circle center={center} options={options} />
         <Marker
           //   position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
           //   position={{ lat: 49.24715346952308, lng: -123.10252661745643 }}
@@ -117,6 +105,8 @@ function ChooseLocation() {
           title={"marker"}
         />
       </GoogleMap>
+      <br />
+      <button onClick={handleClick}>Click to start swiping!</button>
     </div>
   );
 }

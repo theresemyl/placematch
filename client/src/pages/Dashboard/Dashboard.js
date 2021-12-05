@@ -21,6 +21,10 @@ function Dashboard({ userName, userId }) {
       });
   }, []);
 
+  // change this so that it only shows one random place you've swiped right on
+  // add a button where you can refresh on the places you've previously liked for suggestions
+  // "can't decide where to go? here are 3 places you've swiped right on!"
+
   return (
     <main className="dashboard">
       <br />
