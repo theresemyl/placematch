@@ -45,7 +45,8 @@ function Matches({ userName, userId }) {
             <div className="match__container">
               <div className="match__container-left">
                 <img
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${like.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
+                  // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${like.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
+                  src={like.photo}
                   alt="restaurant"
                   className="match__photo"
                 />

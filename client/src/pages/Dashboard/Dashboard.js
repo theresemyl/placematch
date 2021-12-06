@@ -16,11 +16,10 @@ function Dashboard({ userName, userId }) {
             return like;
           }
         });
-        const random = Math.floor(Math.random() * 21);
+        const random = Math.floor(Math.random() * likedList.length);
         setRandomLike(likedList[random]);
         setLikedRestaurants(likedList);
         randomList.push(likedList);
-        console.log(likedList[random]);
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +34,7 @@ function Dashboard({ userName, userId }) {
   //   console.log(random);
   function getRandom() {
     // console.log(randomLike);
-    const random = Math.floor(Math.random() * 21);
+    const random = Math.floor(Math.random() * likedRestaurants.length);
     setRandomLike(likedRestaurants[random]);
     return randomLike;
   }
@@ -49,7 +48,7 @@ function Dashboard({ userName, userId }) {
   // change this so that it only shows one random place you've swiped right on
   // add a button where you can refresh on the places you've previously liked for suggestions
   // "can't decide where to go? here are 3 places you've swiped right on!"
-
+  console.log(randomLike);
   return (
     <main className="dashboard">
       <h1 className="dashboard__title">Dashboard</h1>
@@ -64,7 +63,8 @@ function Dashboard({ userName, userId }) {
       <div className="dashboard__card-container">
         <p>
           <img
-            src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${randomLike.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
+            // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${randomLike.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
+            src={randomLike.photo}
             alt="restaurant"
             className="like__photo"
           />

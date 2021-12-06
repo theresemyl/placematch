@@ -24,6 +24,8 @@ function App() {
   const [lng, setLng] = useState(null);
   const [radius, setRadius] = useState(0);
 
+  const [restaurantList, setRestaurantList] = useState([]);
+
   const token = sessionStorage.getItem("token");
   axios
     .get("http://localhost:8080/api/users/current", {
@@ -33,14 +35,14 @@ function App() {
     })
     .then((response) => {
       const { name, id } = response.data.user;
-      // console.log(name, id);
       setUserName(name);
       setUserId(id);
     })
     .catch((error) => {
       console.error(error);
     });
-  // console.log(userName);
+
+  // console.log("update in app.js", restaurantList);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -101,10 +103,8 @@ function App() {
               exact
               path="/location"
               component={ChooseLocation}
-              lat={lat}
-              lng={lng}
-              setLat={setLat}
-              setLng={setLng}
+              restaurantList={restaurantList}
+              setRestaurantList={setRestaurantList}
             />
             <ProtectedRoute
               exact
@@ -112,8 +112,8 @@ function App() {
               component={SwipeNow}
               userName={userName}
               userId={userId}
-              lat={lat}
-              lng={lng}
+              restaurantList={restaurantList}
+              setRestaurantList={setRestaurantList}
             />
             <ProtectedRoute
               path={"/dashboard"}

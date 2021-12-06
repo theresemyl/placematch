@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.string("swipe_direction").notNullable();
     table.decimal("lat", 10, 7).notNullable();
     table.decimal("lng", 10, 7).notNullable();
-    table.string("photo");
+    table.string("photo", 1000);
     table.integer("users_id").unsigned();
     table
       .foreign("users_id")

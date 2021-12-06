@@ -7,7 +7,7 @@ exports.up = function (knex) {
     table.string("swipe_direction").notNullable();
     table.decimal("lat", 10, 7).notNullable();
     table.decimal("lng", 10, 7).notNullable();
-    table.string("photo");
+    table.string("photo", 1000);
     // user ID of the one who's logged in
     table.integer("matched_user_id1").unsigned();
     table

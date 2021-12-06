@@ -6,6 +6,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Link } from "react-router-dom";
 
 require("dotenv").config();
 const style = {
@@ -31,32 +32,39 @@ const lng = -123.0724;
 const radius = 3000;
 const API_KEY = "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0";
 
-function SwipeNow({ userName, userId }) {
-  const [restaurantList, setRestaurantList] = useState([]);
+function SwipeNow(
+  { userName, userId, restaurantList, setRestaurantList },
+  props
+) {
+  const [swipeRestaurantList, setSwipeRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
   const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
   const [open, setOpen] = useState(false);
   const [match, setMatch] = useState(false);
-
+  console.log("restaurant list inside Swipe Now page", restaurantList);
   // console.log(userName, userId);
   // console.log(props);
   // console.log(userName);
 
   useEffect(() => {
-    axios
-      .get("./api/restaurants")
-      .then((response) => {
-        let list = response.data.results.map((restaurant) => {
-          return restaurant;
-        });
-        setRestaurantList(list);
-        // console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    let list = restaurantList.map((restaurant) => {
+      return restaurant;
+    });
+    setRestaurantList(list);
+    // axios
+    // .get("./api/restaurants")
+    // .then((response) => {
+    //   let list = response.data.results.map((restaurant) => {
+    //     return restaurant;
+    //   });
+    //   setSwipeRestaurantList(list);
+    //   // console.log(response.data);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
+  }, [setRestaurantList]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -85,17 +93,18 @@ function SwipeNow({ userName, userId }) {
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
-    // console.log(userId);
-    console.log(restaurant.photos[0].photo_reference);
+    console.log("logging restaurant", restaurant);
+    console.log(String(restaurant.photos[0].getUrl()));
     axios
       .post(`http://localhost:8080/api/users/likes`, {
         users_id: userId,
-        name: name,
+        name: restaurant.name,
         address: restaurant.vicinity,
         swipe_direction: direction,
-        lat: restaurant.geometry.location.lat,
-        lng: restaurant.geometry.location.lng,
-        photo: restaurant.photos[0].photo_reference,
+        lat: Number(restaurant.geometry.location.lat()),
+        lng: Number(restaurant.geometry.location.lng()),
+        photo: String(restaurant.photos[0].getUrl()),
+        // photo: "test",
       })
       .then(() => {
         // alert("posted");
@@ -126,12 +135,8 @@ function SwipeNow({ userName, userId }) {
             like.swipe_direction === "right" &&
             like.users_id === foundUser
           ) {
-            // setMatch(true);
             setOpen(true);
-            // console.log(open);
-            console.log(userId, userName);
-            console.log(lastItem);
-            console.log(foundUser, foundUserName);
+            console.log("last item", lastItem);
             axios
               .post(`http://localhost:8080/api/users/matches`, {
                 date: Date.now(),
@@ -162,6 +167,11 @@ function SwipeNow({ userName, userId }) {
   };
 
   const handleClose = () => setOpen(false);
+
+  const linkToMatches = () => {
+    console.log(props.history);
+    // props.history.push("./matches");
+  };
 
   return (
     <div>
@@ -207,8 +217,10 @@ function SwipeNow({ userName, userId }) {
                   alt="pizza"
                 /> */}
 
+                {/* // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${restaurant.photos[0].getUrl()}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`} */}
+
                 <img
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${restaurant.photos[0].photo_reference}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
+                  src={restaurant.photos[0].getUrl()}
                   alt="restaurant"
                   className="swipenow__photo"
                 />
@@ -237,6 +249,9 @@ function SwipeNow({ userName, userId }) {
                     Congratulations! Here are the details on the restaurant that
                     you matched with.
                   </b>
+                  <br />
+                  <br />
+                  <Link to="matches">See Matches</Link>
                 </Typography>
               </Box>
             </Modal>

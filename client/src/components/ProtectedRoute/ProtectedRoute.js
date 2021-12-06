@@ -6,10 +6,9 @@ const ProtectedRoute = ({
   component: Component,
   userName,
   userId,
-  lat,
-  lng,
-  setLat,
-  setLng,
+  onMapChange,
+  restaurantList,
+  setRestaurantList,
   ...rest
 }) => {
   const token = sessionStorage.getItem("token");
@@ -30,10 +29,9 @@ const ProtectedRoute = ({
             {...routeProps}
             userName={userName}
             userId={userId}
-            lat={lat}
-            lng={lng}
-            setLat={setLat}
-            setLng={setLng}
+            onMapChange={onMapChange}
+            restaurantList={restaurantList}
+            setRestaurantList={setRestaurantList}
           />
         )
       }
