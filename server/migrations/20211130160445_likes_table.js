@@ -10,8 +10,6 @@ exports.up = function (knex) {
     table.integer("users_id").unsigned();
     table
       .foreign("users_id")
-      // .unsigned()
-      // .notNullable()
       .references("id")
       .inTable("users")
       .onUpdate("CASCADE")

@@ -1,9 +1,7 @@
-// must be logged in to see this page
 import "./Matches.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// relative time format
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
@@ -45,7 +43,6 @@ function Matches({ userName, userId }) {
             <div className="match__container">
               <div className="match__container-left">
                 <img
-                  // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${like.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
                   src={like.photo}
                   alt="restaurant"
                   className="match__photo"
@@ -64,8 +61,6 @@ function Matches({ userName, userId }) {
             <div className="match__container">
               <div className="match__container-left">
                 <img
-                  // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${like.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
-
                   src={like.photo}
                   alt="restaurant"
                   className="match__photo"

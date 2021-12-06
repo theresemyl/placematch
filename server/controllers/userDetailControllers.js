@@ -1,9 +1,5 @@
 const User = require("../models/userDetailModels");
 
-// gets data from model (DB table)
-// then returns result as an express JSON response
-// ernie demo: crud-demo
-
 exports.getUsers = (req, res) => {
   User.findAll().then((users) => res.json(users));
 };

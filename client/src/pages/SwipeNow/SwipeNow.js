@@ -16,21 +16,11 @@ const style = {
   transform: "translate(-50%, -50%)",
   textAlign: "center",
   width: 400,
-  // fontFamily: "Montserrat Regular",
   bgcolor: "background.paper",
   borderRadius: 3,
   boxShadow: 24,
   p: 4,
 };
-
-// default van coords
-// const lat = 49.246292;
-// const lng = -123.116226;
-
-const lat = 49.32;
-const lng = -123.0724;
-const radius = 3000;
-const API_KEY = "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0";
 
 function SwipeNow(
   { userName, userId, restaurantList, setRestaurantList },
@@ -43,9 +33,6 @@ function SwipeNow(
   const [open, setOpen] = useState(false);
   const [match, setMatch] = useState(false);
   console.log("restaurant list inside Swipe Now page", restaurantList);
-  // console.log(userName, userId);
-  // console.log(props);
-  // console.log(userName);
 
   useEffect(() => {
     let list = restaurantList.map((restaurant) => {
@@ -76,7 +63,6 @@ function SwipeNow(
           return name.username === event.target.name.value;
         });
         if (findUser) {
-          // setFoundUser(findUser.username);
           setFoundUserName(findUser.name);
           setFoundUser(findUser.id);
         } else {
@@ -84,7 +70,6 @@ function SwipeNow(
           setFoundUser(null);
           setFoundUserName(null);
         }
-        // console.log(foundUser.id);
       })
       .catch((err) => {
         console.log(err);
@@ -104,10 +89,8 @@ function SwipeNow(
         lat: Number(restaurant.geometry.location.lat()),
         lng: Number(restaurant.geometry.location.lng()),
         photo: String(restaurant.photos[0].getUrl()),
-        // photo: "test",
       })
       .then(() => {
-        // alert("posted");
         console.log(restaurant);
         console.log(name);
         setMatch(name);
@@ -118,16 +101,10 @@ function SwipeNow(
   };
 
   const outOfFrame = (name) => {
-    // console.log(name + " left the screen!");
-    // console.log(foundUser);
-    // console.log(userName, userId);
-
     axios
       .get("http://localhost:8080/api/users/all/likes")
       .then((response) => {
         const lastItem = response.data[response.data.length - 1];
-        // console.log(lastItem);
-
         response.data.find((like) => {
           if (
             like.name === lastItem.name &&
@@ -151,10 +128,7 @@ function SwipeNow(
                 matched_user_name1: userName,
                 matched_user_name2: foundUserName,
               })
-              .then(() => {
-                // alert("posted");
-                console.log(lastItem);
-              })
+              .then(() => {})
               .catch((err) => {
                 console.log(err);
               });
@@ -167,11 +141,6 @@ function SwipeNow(
   };
 
   const handleClose = () => setOpen(false);
-
-  const linkToMatches = () => {
-    console.log(props.history);
-    // props.history.push("./matches");
-  };
 
   return (
     <div>
@@ -212,13 +181,6 @@ function SwipeNow(
               preventSwipe={["up", "down"]}
             >
               <div className="card">
-                {/* <img
-                  src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png?crop=1.00xw:1.00xh;0,0&resize=480:*"
-                  alt="pizza"
-                /> */}
-
-                {/* // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${restaurant.photos[0].getUrl()}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`} */}
-
                 <img
                   src={restaurant.photos[0].getUrl()}
                   alt="restaurant"
@@ -231,7 +193,6 @@ function SwipeNow(
           ))}
 
           <div>
-            {/* <Button onClick={handleOpen}>Open modal</Button> */}
             <Modal
               open={open}
               onClose={handleClose}

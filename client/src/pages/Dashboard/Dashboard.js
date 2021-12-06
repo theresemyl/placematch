@@ -26,28 +26,12 @@ function Dashboard({ userName, userId }) {
       });
   }, [setRandomLike]);
 
-  // const randomLike =
-  //   likedRestaurants[Math.floor(Math.random() * likedRestaurants.length)];
-  // console.log(randomLike);
-  // const pickRandomNumber = () => {
-  //   const random = Math.floor(Math.random() * 21);
-  //   console.log(random);
   function getRandom() {
-    // console.log(randomLike);
     const random = Math.floor(Math.random() * likedRestaurants.length);
     setRandomLike(likedRestaurants[random]);
     return randomLike;
   }
 
-  //   return randomList[1][random];
-  //   // return likedRestaurants[random];
-  //   // setRandomLike(likedRestaurants[random]);
-  //   // console.log(randomLike);
-  // };
-  // console.log(likedRestaurants[3]);
-  // change this so that it only shows one random place you've swiped right on
-  // add a button where you can refresh on the places you've previously liked for suggestions
-  // "can't decide where to go? here are 3 places you've swiped right on!"
   console.log(randomLike);
   return (
     <main className="dashboard">
@@ -63,7 +47,6 @@ function Dashboard({ userName, userId }) {
       <div className="dashboard__card-container">
         <p>
           <img
-            // src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=450&photo_reference=${randomLike.photo}&key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0`}
             src={randomLike.photo}
             alt="restaurant"
             className="like__photo"
@@ -77,28 +60,6 @@ function Dashboard({ userName, userId }) {
       <br />
       <br />
       <button onClick={getRandom}>Click me</button>
-      {/* <p>{pickRandomNumber().name}</p> */}
-      {/* {likedRestaurants.map((like) => (
-        <div key={like.id}>
-          <p>
-            <b>{like.name}</b>
-          </p>
-          <p>{like.address}</p>
-        </div>
-      ))} */}
-      {/* {
-        likedRestaurants[Math.floor(Math.random() * likedRestaurants.length)]
-      } */}
-      {/* <p>{randomLike.name}</p> */}
-      {/* <p>{likedRestaurants[0].name}</p> */}
-      {/* {likedRestaurants.map((like) => (
-        <div key={like.id}>
-          <p>
-            <b>{like.name}</b>
-          </p>
-          <p>{like.address}</p>
-        </div>
-      ))} */}
     </main>
   );
 }

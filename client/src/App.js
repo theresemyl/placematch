@@ -18,12 +18,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(0);
-
-  // for choosing location
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [radius, setRadius] = useState(0);
-
   const [restaurantList, setRestaurantList] = useState([]);
 
   const token = sessionStorage.getItem("token");
@@ -41,8 +35,6 @@ function App() {
     .catch((error) => {
       console.error(error);
     });
-
-  // console.log("update in app.js", restaurantList);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -90,15 +82,7 @@ function App() {
               component={Logout}
               onClick={() => handleLogout()}
             />
-            {/* <Route path="/login" exact component={Login} /> */}
             <Route path="/signup" exact component={SignUp} />
-            {/* <Route
-              path="/swipenow"
-              exact
-              render={(routerProps) => (
-                <SwipeNow userName={userName} userId={userId} />
-              )}
-            /> */}
             <ProtectedRoute
               exact
               path="/location"

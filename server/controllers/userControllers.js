@@ -1,5 +1,3 @@
-// no models for this one bc database?
-
 const knex = require("knex")(require("../knexfile").development);
 
 exports.index = (_req, res) => {
