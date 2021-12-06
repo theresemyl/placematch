@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -39,7 +39,18 @@ const options = {
   zIndex: 1,
 };
 
+let resList = [];
+
 function ChooseLocation(props, { lat, lng, setLat, setLng }) {
+  const isInitialMount = useRef(true);
+
+  //   useEffect((map) => {
+  //     if (isInitialMount.current) {
+  //       isInitialMount.current = false;
+  //     } else {
+  //       onMapChange();
+  //     }
+  //   });
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0",
     libraries,
@@ -81,18 +92,24 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
     //   setRestaurantList(res);
     // };
 
-    const service = new window.google.maps.places.PlacesService(map);
-    service.nearbySearch(request, (res) => {
-      console.log(res);
-      setRestaurantList(res);
-    });
-
     console.log(
       "on click coords change:",
       getLocation.lat(),
       getLocation.lng()
     );
-    console.log(service);
+    // console.log(service);
+
+    const service = new window.google.maps.places.PlacesService(map);
+    service.nearbySearch(request, (res) => {
+      console.log(res);
+
+      // this one gets saved everytime i click onto another page then click back into location
+      setRestaurantList(res);
+
+      // this one resets everytime i click on location
+      resList.push(res);
+      console.log(resList[0]);
+    });
   };
 
   const handleClick = (map) => {
@@ -178,9 +195,9 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
       <br />
       <button onClick={onMapChange}>Click to start swiping!</button>
       <br />
-      {/* {restaurantList.map((restaurant) => (
+      {resList.map((restaurant) => (
         <p key={restaurant.name}>{restaurant.name}</p>
-      ))} */}
+      ))}
     </div>
   );
 }

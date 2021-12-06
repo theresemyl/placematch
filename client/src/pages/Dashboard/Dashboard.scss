@@ -1,0 +1,17 @@
+.dashboard__card-container {
+  position: relative;
+  margin: 0 auto;
+  width: 300px;
+  height: 350px;
+  overflow: hidden;
+  text-align: center;
+  background-color: #fce0e7;
+  border-radius: 20px;
+}
+
+.like__photo {
+  min-height: 220px;
+  max-height: 220px;
+  width: 100%;
+  overflow: hidden;
+}
