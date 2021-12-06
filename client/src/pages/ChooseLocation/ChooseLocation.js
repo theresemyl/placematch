@@ -76,13 +76,23 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
       type: ["restaurant"],
     };
 
-    const callback = (res) => {
-      console.log(res);
-      setRestaurantList(res);
-    };
+    // const callback = (res) => {
+    //   console.log(res);
+    //   setRestaurantList(res);
+    // };
 
     const service = new window.google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
+    service.nearbySearch(request, (res) => {
+      console.log(res);
+      setRestaurantList(res);
+    });
+
+    console.log(
+      "on click coords change:",
+      getLocation.lat(),
+      getLocation.lng()
+    );
+    console.log(service);
   };
 
   const handleClick = (map) => {
@@ -127,7 +137,8 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
               lng: event.latLng.lng(),
               time: new Date(),
             },
-            console.log(event.latLng.lat(), event.latLng.lng()),
+            // console.log(event.latLng.lat(), event.latLng.lng()),
+            console.log(center),
           ]);
 
           //   onMapChange();
@@ -165,11 +176,11 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
         />
       </GoogleMap>
       <br />
-      <button onClick={handleClick}>Click to start swiping!</button>
+      <button onClick={onMapChange}>Click to start swiping!</button>
       <br />
-      {restaurantList.map((restaurant) => (
+      {/* {restaurantList.map((restaurant) => (
         <p key={restaurant.name}>{restaurant.name}</p>
-      ))}
+      ))} */}
     </div>
   );
 }
