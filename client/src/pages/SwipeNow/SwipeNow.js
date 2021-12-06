@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
+require("dotenv").config();
 const style = {
   position: "absolute",
   top: "50%",
@@ -21,6 +22,15 @@ const style = {
   p: 4,
 };
 
+// default van coords
+// const lat = 49.246292;
+// const lng = -123.116226;
+
+const lat = 49.32;
+const lng = -123.0724;
+const radius = 3000;
+const API_KEY = "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0";
+
 function SwipeNow({ userName, userId }) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
@@ -28,6 +38,7 @@ function SwipeNow({ userName, userId }) {
   const [swipeDirection, setSwipeDirection] = useState("");
   const [open, setOpen] = useState(false);
   const [match, setMatch] = useState(false);
+
   // console.log(userName, userId);
   // console.log(props);
   // console.log(userName);
@@ -40,6 +51,7 @@ function SwipeNow({ userName, userId }) {
           return restaurant;
         });
         setRestaurantList(list);
+        // console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +62,7 @@ function SwipeNow({ userName, userId }) {
     event.preventDefault();
 
     axios
-      .get("./api/users/all")
+      .get("http://localhost:8080/api/users/all")
       .then((response) => {
         let findUser = response.data.find((name) => {
           return name.username === event.target.name.value;
@@ -76,7 +88,7 @@ function SwipeNow({ userName, userId }) {
     // console.log(userId);
     console.log(restaurant.photos[0].photo_reference);
     axios
-      .post(`./api/users/likes`, {
+      .post(`http://localhost:8080/api/users/likes`, {
         users_id: userId,
         name: name,
         address: restaurant.vicinity,
@@ -102,7 +114,7 @@ function SwipeNow({ userName, userId }) {
     // console.log(userName, userId);
 
     axios
-      .get("./api/users/all/likes")
+      .get("http://localhost:8080/api/users/all/likes")
       .then((response) => {
         const lastItem = response.data[response.data.length - 1];
         // console.log(lastItem);
@@ -121,7 +133,7 @@ function SwipeNow({ userName, userId }) {
             console.log(lastItem);
             console.log(foundUser, foundUserName);
             axios
-              .post(`./api/users/matches`, {
+              .post(`http://localhost:8080/api/users/matches`, {
                 date: Date.now(),
                 name: lastItem.name,
                 address: lastItem.address,
@@ -184,7 +196,7 @@ function SwipeNow({ userName, userId }) {
           {restaurantList.map((restaurant) => (
             <TinderCard
               className="swipe"
-              key={restaurant.name}
+              key={restaurant.id}
               onSwipe={(dir) => handleSwipe(dir, restaurant.name, restaurant)}
               onCardLeftScreen={() => outOfFrame(restaurant.name)}
               preventSwipe={["up", "down"]}

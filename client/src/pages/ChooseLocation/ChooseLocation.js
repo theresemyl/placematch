@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -18,11 +18,6 @@ const mapContainerStyle = {
 };
 
 let center = {
-  lat: 49.246292,
-  lng: -123.116226,
-};
-
-let newCoords = {
   lat: 49.246292,
   lng: -123.116226,
 };
@@ -51,20 +46,8 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
   });
 
   const [marker, setMarker] = useState([]);
-
-  const handleClick = () => {
-    props.history.push("./swipenow");
-  };
-
-  //   useEffect(() => {
-
-  //   }, []);
-
-  console.log(lat, lng);
-
-  //   const handleChange = (event) => {
-  //     console.log(event);
-  //   };
+  const [restaurantList, setRestaurantList] = useState([]);
+  const [newRestaurantList, setNewRestaurantList] = useState([]);
 
   if (loadError) {
     return "Sorry, error loading map!";
@@ -74,40 +57,95 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
     return "Loading map...";
   }
 
+  const onMapLoad = (map) => {
+    new window.google.maps.LatLng(center.lat, center.lng);
+    // let getLocation = new window.google.maps.LatLng(49.246292, -123.116226);
+
+    // map = new window.google.maps.Map(document.getElementById("map"), {
+    //   center: pyrmont,
+    //   zoom: 15,
+    // });
+  };
+
+  const onMapChange = (map) => {
+    let getLocation = new window.google.maps.LatLng(center.lat, center.lng);
+
+    let request = {
+      location: getLocation,
+      radius: "2000",
+      type: ["restaurant"],
+    };
+
+    const callback = (res) => {
+      console.log(res);
+      setRestaurantList(res);
+    };
+
+    const service = new window.google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+  };
+
+  const handleClick = (map) => {
+    console.log(restaurantList);
+    // console.log("handle click run");
+    // let getLocation = new window.google.maps.LatLng(center.lat, center.lng);
+    // let request = {
+    //   location: getLocation,
+    //   radius: "2000",
+    //   type: ["restaurant"],
+    // };
+    // const callback = (res) => {
+    //   console.log(res);
+    //   setNewRestaurantList(res);
+    // };
+    // const service = new window.google.maps.places.PlacesService(map);
+    // service.nearbySearch(request, callback);
+    // // props.history.push("./swipenow");
+    // console.log(newRestaurantList);
+  };
+
   return (
     <div>
       <h1>Choose location</h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
+        onLoad={(map) => onMapChange(map)}
+        // onCenterChanged={(map) => onMapChange(map)}
         center={center}
         options={options}
+        // nearbySearch={request}
+        // onMapChange={(map) => {
+        //   console.log(map);
+        // }}
         onClick={(event) => {
-          //   console.log(event);
+          center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+          //   onMapChange();
           setMarker(() => [
             {
               lat: event.latLng.lat(),
               lng: event.latLng.lng(),
               time: new Date(),
             },
-            // console.log(event.latLng.lat()),
+            console.log(event.latLng.lat(), event.latLng.lng()),
           ]);
+
+          //   onMapChange();
           //   handleChange();
           //   const newLat = Number(event.latLng.lat());
           //   const newLng = Number(event.latLng.lng());
 
-          newCoords = {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-          };
+          //   newCoords = {
+          //     lat: event.latLng.lat(),
+          //     lng: event.latLng.lng(),
+          //   };
 
           //   setLat(center.lat);
           //   setLng(center.lng);
-          //   console.log(lat, lng);
-          center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-          //   console.log(center);
         }}
       >
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0&libraries=places"></script>
+
         <Circle center={center} options={options} />
         <Marker
           //   position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
@@ -129,9 +167,9 @@ function ChooseLocation(props, { lat, lng, setLat, setLng }) {
       <br />
       <button onClick={handleClick}>Click to start swiping!</button>
       <br />
-      <p>
-        {lat}, {lng}
-      </p>
+      {restaurantList.map((restaurant) => (
+        <p key={restaurant.name}>{restaurant.name}</p>
+      ))}
     </div>
   );
 }

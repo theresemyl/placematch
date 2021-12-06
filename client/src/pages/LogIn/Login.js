@@ -21,7 +21,7 @@ function Login(props) {
       .then((res) => {
         sessionStorage.setItem("token", res.data.token);
         props.onLoginSuccess(res.data.user);
-        props.history.push("./swipenow");
+        props.history.push("./location");
       })
       .catch((error) => {
         console.log(error);

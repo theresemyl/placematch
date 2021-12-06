@@ -9,37 +9,41 @@ const morgan = require("morgan");
 const app = express();
 const PORT = 8080;
 
+const { createProxyMiddleware } = require("http-proxy-middleware");
+const axios = require("axios");
+
+// app.use(cors());
 app.use(cors());
+
 app.use(express.json());
 app.use(morgan("dev"));
 
+// const userProxy = createProxyMiddleware("/api/users/", {
+//   target: "http://localhost:8080",
+//   changeOrigin: true,
+//   // onProxyReq: userRoutes,
+// });
+// app.use(
+//   createProxyMiddleware("/api/users/*", {
+//     target: "http://localhost:8080",
+//     changeOrigin: true,
+//   })
+// );
+
 app.use("/api/users", userRoutes);
+// app.use(
+//   createProxyMiddleware("/places", {
+//     target: "https://maps.googleapis.com/maps/api/place/nearbysearch",
+//     changeOrigin: true,
+//     pathRewrite: {
+//       [`https://maps.googleapis.com/maps/api/place/nearbysearch`]:
+//         "http://localhost:8080",
+//     },
+//   })
+// );
+
 app.use("/api/restaurants", restaurantRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
-// require("dotenv").config();
-// const express = require("express");
-// const app = express();
-// const cors = require("cors");
-// const restaurantRoutes = require("./routes/restaurantRoutes");
-// const userRoutes = require("./routes/userRoutes");
-// const knex = require("knex")(require("./knexfile").development);
-// const port = process.env.PORT || 8080;
-// if (process.env.NODE_ENV !== "production") require("dotenv").config();
-
-// const morgan = require("morgan");
-
-// //middleware functions
-// app.use(cors());
-// // app.use(express.static("public"));
-// app.use(express.json());
-
-// app.use("/restaurants", restaurantRoutes);
-// app.use("/users", userRoutes);
-
-// app.listen(port, function () {
-//   console.log(`Server is running on port ${port}`);
-// });
