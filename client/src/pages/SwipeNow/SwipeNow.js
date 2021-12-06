@@ -246,8 +246,8 @@ function SwipeNow(
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <b>
-                    Congratulations! Here are the details on the restaurant that
-                    you matched with.
+                    Congratulations! Click below to see more of your matches and
+                    pick a place to go.
                   </b>
                   <br />
                   <br />
