@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "./Navbar.scss";
-import homeicon from "../../assets/icons/home.png";
-import swipearrow from "../../assets/icons/swipearrow.png";
-import heart from "../../assets/icons/heart.png";
-import axios from "axios";
 
 const Navbar = ({ user, userName }) => {
-  // console.log(userName);
-
   return (
     <div className="navbar">
       {user ? (
@@ -15,21 +10,7 @@ const Navbar = ({ user, userName }) => {
           <li className="listItem">
             Logged in as <b>{userName}</b>
           </li>
-          {/* <br />
-          <li className="listItem">
-            <img src={homeicon} alt="home icon" className="navbar__icon" />
-          </li>
 
-          <li className="listItem">
-            <img src={heart} alt="heart icon" className="navbar__icon" />
-          </li>
-          <li className="listItem">
-            <img
-              src={swipearrow}
-              alt="swipe arrow icon"
-              className="navbar__icon"
-            />
-          </li> */}
           <br />
           <li className="listItem">
             <Link className="link" to="dashboard">
@@ -53,25 +34,13 @@ const Navbar = ({ user, userName }) => {
             </Link>
           </li>
           <li className="listItem">
-            <Link className="link" to="Logout">
+            <Link className="link" to="logout">
               Logout
             </Link>
           </li>
         </ul>
       ) : (
-        <ul className="list">
-          {/* <li className="listItem">
-            <Link className="link" to="login">
-              Login
-            </Link>
-          </li>
-
-          <li className="listItem">
-            <Link className="link" to="signup">
-              Sign Up
-            </Link>
-          </li> */}
-        </ul>
+        <ul className="list"></ul>
       )}
     </div>
   );

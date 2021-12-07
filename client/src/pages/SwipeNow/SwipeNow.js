@@ -26,12 +26,12 @@ function SwipeNow(
   { userName, userId, restaurantList, setRestaurantList },
   props
 ) {
-  const [swipeRestaurantList, setSwipeRestaurantList] = useState([]);
+  // const [swipeRestaurantList, setSwipeRestaurantList] = useState([]);
   const [foundUser, setFoundUser] = useState(null);
   const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
   const [open, setOpen] = useState(false);
-  const [match, setMatch] = useState(false);
+  // const [match, setMatch] = useState(false);
   console.log("restaurant list inside Swipe Now page", restaurantList);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function SwipeNow(
       .then(() => {
         console.log(restaurant);
         console.log(name);
-        setMatch(name);
+        // setMatch(name);
       })
       .catch((err) => {
         console.log(err);

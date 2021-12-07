@@ -6,6 +6,7 @@ function Logout(props) {
     sessionStorage.removeItem("token");
     console.log("logged out");
     props.history.push("/");
+    window.location.reload();
   });
 
   return <Redirect to="/" />;

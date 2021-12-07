@@ -79,8 +79,17 @@ function App() {
             />
             <Route
               path={"/logout"}
-              component={Logout}
-              onClick={() => handleLogout()}
+              render={(routerProps) => (
+                <Logout
+                  {...routerProps}
+                  handleLogout={(user) => {
+                    handleLogout(user);
+                  }}
+                />
+              )}
+
+              // component={Logout}
+              // handleLogout={handleLogout}
             />
             <Route path="/signup" exact component={SignUp} />
             <ProtectedRoute

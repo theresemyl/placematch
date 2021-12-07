@@ -38,38 +38,28 @@ const options = {
 
 let resList = [];
 
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 function ChooseLocation(props, { restaurantList, setRestaurantList }) {
-  //   console.log(props);
+  console.log(restaurantList);
+  const [marker, setMarker] = useState([]);
+
   const isInitialMount = useRef(true);
 
-  useEffect((map) => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      //   onMapChange();
-    }
-  });
+  const prevAmount = usePrevious({ restaurantList, setRestaurantList });
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0",
     libraries,
   });
-
-  const [marker, setMarker] = useState([]);
-  //   const [restaurantList, setRestaurantList] = useState([]);
-
-  if (loadError) {
-    return "Sorry, error loading map!";
-  }
-
-  if (!isLoaded) {
-    return "Loading map...";
-  }
-
-  const onMapLoad = (map) => {
-    new window.google.maps.LatLng(center.lat, center.lng);
-  };
-
   const onMapChange = (map) => {
+    console.log("on map change map", map);
     let getLocation = new window.google.maps.LatLng(center.lat, center.lng);
     let request = {
       location: getLocation,
@@ -99,6 +89,28 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
     "setRestaurantList state update outside function: ",
     props.restaurantList
   );
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      // return props.restaurantList;
+      setTimeout((map) => {
+        onMapChange(map);
+      }, 3000);
+    }
+  }, [props.restaurantList]);
+
+  if (loadError) {
+    return "Sorry, error loading map!";
+  }
+
+  if (!isLoaded) {
+    return "Loading map...";
+  }
+
+  // const onMapLoad = (map) => {
+  //   new window.google.maps.LatLng(center.lat, center.lng);
+  // };
 
   const handleClick = (map) => {
     props.history.push("./swipenow");
