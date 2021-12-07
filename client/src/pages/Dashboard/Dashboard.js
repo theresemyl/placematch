@@ -32,7 +32,6 @@ function Dashboard({ userName, userId }) {
     return randomLike;
   }
 
-  console.log(randomLike);
   return (
     <main className="dashboard">
       <h1 className="dashboard__title">Dashboard</h1>
@@ -45,17 +44,17 @@ function Dashboard({ userName, userId }) {
       </p>
       <br />
       <div className="dashboard__card-container">
-        <p>
+        <div className="like__photo-container">
           <img
             src={randomLike.photo}
             alt="restaurant"
             className="like__photo"
           />
+        </div>
+        <p className="like__text">
+          <h3>{randomLike.name}</h3>
+          {randomLike.address}
         </p>
-        <p>
-          <b>{randomLike.name}</b>
-        </p>
-        <p>{randomLike.address}</p>
       </div>
       <br />
       <br />

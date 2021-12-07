@@ -132,7 +132,7 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
           //   onMapChange(event);
         }}
       >
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0&libraries=places"></script>
+        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0&libraries=places"></script> */}
 
         <Circle center={center} options={options} />
         <Marker
