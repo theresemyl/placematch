@@ -33,6 +33,12 @@ PORT=8080
 JWT_SECRET=hello
 ```
 
+On `package.json`, add your localhost server to the proxy, for example:
+
+```
+"proxy": "http://localhost:8080"
+```
+
 ## Required API Key
 
 This project requires you to create your own API key from the

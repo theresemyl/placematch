@@ -30,6 +30,18 @@ function Matches({ userName, userId }) {
       });
   }, []);
 
+  if (likedRestaurants.length === 0) {
+    return (
+      <>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h3>Sorry! No matches were found.</h3>
+      </>
+    );
+  }
+
   return (
     <main className="dashboard">
       <br />

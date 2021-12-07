@@ -32,6 +32,20 @@ function Dashboard({ userName, userId }) {
     return randomLike;
   }
 
+  if (likedRestaurants.length === 0) {
+    return (
+      <>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h3>
+          Sorry! No likes were found yet. Please try swiping and come back!
+        </h3>
+      </>
+    );
+  }
+
   return (
     <main className="dashboard">
       <h1 className="dashboard__title">Dashboard</h1>

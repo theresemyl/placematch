@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Link } from "react-router-dom";
 
-require("dotenv").config();
 const style = {
   position: "absolute",
   top: "50%",
@@ -39,25 +38,13 @@ function SwipeNow(
       return restaurant;
     });
     setRestaurantList(list);
-    // axios
-    // .get("./api/restaurants")
-    // .then((response) => {
-    //   let list = response.data.results.map((restaurant) => {
-    //     return restaurant;
-    //   });
-    //   setSwipeRestaurantList(list);
-    //   // console.log(response.data);
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   }, [setRestaurantList]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axios
-      .get("http://localhost:8080/api/users/all")
+      .get("./api/users/all")
       .then((response) => {
         let findUser = response.data.find((name) => {
           return name.username === event.target.name.value;
@@ -66,7 +53,7 @@ function SwipeNow(
           setFoundUserName(findUser.name);
           setFoundUser(findUser.id);
         } else {
-          alert("user not found");
+          alert("Sorry! User was not found. Please try again.");
           setFoundUser(null);
           setFoundUserName(null);
         }
@@ -78,10 +65,8 @@ function SwipeNow(
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
-    console.log("logging restaurant", restaurant);
-    console.log(String(restaurant.photos[0].getUrl()));
     axios
-      .post(`http://localhost:8080/api/users/likes`, {
+      .post(`./api/users/likes`, {
         users_id: userId,
         name: restaurant.name,
         address: restaurant.vicinity,
@@ -90,11 +75,7 @@ function SwipeNow(
         lng: Number(restaurant.geometry.location.lng()),
         photo: String(restaurant.photos[0].getUrl()),
       })
-      .then(() => {
-        console.log(restaurant);
-        console.log(name);
-        // setMatch(name);
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });
@@ -102,7 +83,7 @@ function SwipeNow(
 
   const outOfFrame = (name) => {
     axios
-      .get("http://localhost:8080/api/users/all/likes")
+      .get("./api/users/all/likes")
       .then((response) => {
         const lastItem = response.data[response.data.length - 1];
         response.data.find((like) => {
@@ -115,7 +96,7 @@ function SwipeNow(
             setOpen(true);
             console.log("last item", lastItem);
             axios
-              .post(`http://localhost:8080/api/users/matches`, {
+              .post(`./api/users/matches`, {
                 date: Date.now(),
                 name: lastItem.name,
                 address: lastItem.address,
@@ -141,6 +122,20 @@ function SwipeNow(
   };
 
   const handleClose = () => setOpen(false);
+
+  if (restaurantList.length === 0) {
+    return (
+      <>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h3>
+          Sorry! No restaurants were found in your search. Please try again.
+        </h3>
+      </>
+    );
+  }
 
   return (
     <div>
