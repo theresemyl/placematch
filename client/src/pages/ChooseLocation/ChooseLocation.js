@@ -55,7 +55,7 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
   const prevAmount = usePrevious({ restaurantList, setRestaurantList });
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries,
   });
   const onMapChange = (map) => {

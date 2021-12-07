@@ -26,6 +26,12 @@ knex migrate:latest
 knex seed:run
 ```
 
+On the client-side `package.json`, add your localhost server to the proxy, for example:
+
+```
+"proxy": "http://localhost:8080"
+```
+
 On the server-side `.env` file, add your proxy and jwt_secret, for example:
 
 ```
@@ -33,18 +39,16 @@ PORT=8080
 JWT_SECRET=hello
 ```
 
-On `package.json`, add your localhost server to the proxy, for example:
-
-```
-"proxy": "http://localhost:8080"
-```
-
 ## 🔑 Required API Key
 
 This project requires you to create your own API key from the
 [Google Maps Platform](https://developers.google.com/maps/documentation/javascript/get-api-key).
 
-After registering your API key, enter it in the `.env` file.
+After registering your API key, enter it in the client-side `.env` file, for example:
+
+```
+REACT_APP_GOOGLE_API_KEY=apikeyhere
+```
 
 ## Usage
 

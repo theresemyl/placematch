@@ -123,7 +123,7 @@ function SwipeNow(
 
   const handleClose = () => setOpen(false);
 
-  if (restaurantList.length === 0) {
+  if (restaurantList === null) {
     return (
       <>
         <br />
