@@ -58,6 +58,24 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries,
   });
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      // return props.restaurantList;
+      // setTimeout((map) => {
+      //   onMapChange(map);
+      // }, 3000);
+    }
+  }, [props.restaurantList]);
+
+  if (loadError) {
+    return "Sorry, error loading map!";
+  }
+
+  if (!isLoaded) {
+    return "Loading map...";
+  }
   const onMapChange = (map) => {
     console.log("on map change map", map);
     let getLocation = new window.google.maps.LatLng(center.lat, center.lng);
@@ -89,25 +107,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
     "setRestaurantList state update outside function: ",
     props.restaurantList
   );
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      // return props.restaurantList;
-      setTimeout((map) => {
-        onMapChange(map);
-      }, 3000);
-    }
-  }, [props.restaurantList]);
-
-  if (loadError) {
-    return "Sorry, error loading map!";
-  }
-
-  if (!isLoaded) {
-    return "Loading map...";
-  }
-
   // const onMapLoad = (map) => {
   //   new window.google.maps.LatLng(center.lat, center.lng);
   // };

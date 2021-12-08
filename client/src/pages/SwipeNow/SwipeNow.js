@@ -30,6 +30,8 @@ function SwipeNow(
   const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [photo, setPhoto] = useState("");
   // const [match, setMatch] = useState(false);
   console.log("restaurant list inside Swipe Now page", restaurantList);
 
@@ -38,7 +40,8 @@ function SwipeNow(
       return restaurant;
     });
     setRestaurantList(list);
-  }, [setRestaurantList]);
+    setIsLoading(true);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,12 +62,13 @@ function SwipeNow(
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("inside handlesubmit", err);
       });
   };
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
+    setPhoto(String(restaurant.photos[0].getUrl()));
     axios
       .post(`./api/users/likes`, {
         users_id: userId,
@@ -123,19 +127,21 @@ function SwipeNow(
 
   const handleClose = () => setOpen(false);
 
-  if (restaurantList === null) {
-    return (
-      <>
-        <br />
-        <br />
-        <br />
-        <br />
-        <h3>
-          Sorry! No restaurants were found in your search. Please try again.
-        </h3>
-      </>
-    );
-  }
+  // if (restaurantList === null) {
+  //   return (
+  //     <>
+  //       <br />
+  //       <br />
+  //       <br />
+  //       <br />
+  //       <h3>
+  //         Sorry! No restaurants were found in your search. Please try again.
+  //       </h3>
+  //     </>
+  //   );
+  // }
+
+  // console.log("restaurant photo here:", restaurantList[0].photos[0].getUrl());
 
   return (
     <div>
@@ -167,25 +173,39 @@ function SwipeNow(
             <i> {foundUserName}!</i>
           </h2>
           <br />
-          {restaurantList.map((restaurant) => (
-            <TinderCard
-              className="swipe"
-              key={restaurant.id}
-              onSwipe={(dir) => handleSwipe(dir, restaurant.name, restaurant)}
-              onCardLeftScreen={() => outOfFrame(restaurant.name)}
-              preventSwipe={["up", "down"]}
-            >
-              <div className="card">
-                <img
-                  src={restaurant.photos[0].getUrl()}
-                  alt="restaurant"
-                  className="swipenow__photo"
-                />
-                <h3>{restaurant.name}</h3>
-                <h3>{restaurant.vicinity}</h3>
-              </div>
-            </TinderCard>
-          ))}
+
+          {restaurantList.length === -1 ? (
+            <h1>Oops! Something went wrong. Please try again. </h1>
+          ) : (
+            restaurantList.map((restaurant) => (
+              <TinderCard
+                className="swipe"
+                key={restaurant.id}
+                onSwipe={(dir) => handleSwipe(dir, restaurant.name, restaurant)}
+                onCardLeftScreen={() => outOfFrame(restaurant.name)}
+                preventSwipe={["up", "down"]}
+              >
+                <div className="card">
+                  {/* <img
+                    src={photo}
+                    alt="restaurant"
+                    className="swipenow__photo"
+                  /> */}
+                  <img
+                    src={
+                      restaurant.photos[0].getUrl()
+                        ? restaurant.photos[0].getUrl()
+                        : "no photo"
+                    }
+                    alt="restaurant"
+                    className="swipenow__photo"
+                  />
+                  <h3>{restaurant.name}</h3>
+                  <h3>{restaurant.vicinity}</h3>
+                </div>
+              </TinderCard>
+            ))
+          )}
 
           <div>
             <Modal
