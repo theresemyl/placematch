@@ -8,8 +8,6 @@ exports.signUpUser = (req, res) => {
     .then((password) => {
       const userObj = { ...req.body, password: password };
       User.create(userObj).then((user) => {
-        console.log(user);
-        console.log(user[0]);
         const token = jwt.sign(
           { email: userObj.email },
           process.env.JWT_SECRET,

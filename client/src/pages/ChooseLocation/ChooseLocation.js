@@ -47,7 +47,6 @@ function usePrevious(value) {
 }
 
 function ChooseLocation(props, { restaurantList, setRestaurantList }) {
-  console.log(restaurantList);
   const [marker, setMarker] = useState([]);
 
   const isInitialMount = useRef(true);
@@ -62,10 +61,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      // return props.restaurantList;
-      // setTimeout((map) => {
-      //   onMapChange(map);
-      // }, 3000);
     }
   }, [props.restaurantList]);
 
@@ -90,22 +85,11 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
     //   setRestaurantList(res);
     // };
 
-    console.log(
-      "on click coords change:",
-      getLocation.lat(),
-      getLocation.lng()
-    );
-
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (res) => {
-      console.log("result from nearby search", res);
       props.setRestaurantList(res);
     });
   };
-  console.log(
-    "setRestaurantList state update outside function: ",
-    props.restaurantList
-  );
   // const onMapLoad = (map) => {
   //   new window.google.maps.LatLng(center.lat, center.lng);
   // };
@@ -122,24 +106,17 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
         zoom={12}
         onLoad={(map) => onMapChange(map)}
         onCenterChanged={(map) => onMapChange(map)}
-        // onCenterChanged={() => onMapChange}
         center={center}
         options={options}
         onClick={(event) => {
           center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-          //   onMapChange();
           setMarker(() => [
             {
               lat: event.latLng.lat(),
               lng: event.latLng.lng(),
               time: new Date(),
             },
-            // console.log(event.latLng.lat(), event.latLng.lng()),
-            console.log(center),
           ]);
-
-          //   setRestaurantList();
-          //   onMapChange(event);
         }}
       >
         <Circle center={center} options={options} />

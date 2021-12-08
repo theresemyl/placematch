@@ -18,16 +18,16 @@ function Signup(props) {
         password: event.target.password.value,
       })
       .then(() => {
-        alert("signed up successfully!");
+        alert("Signed up successfully!");
         event.target.reset();
         setError("");
         setSuccess(true);
         props.history.push("./login");
       })
       .catch((error) => {
-        console.log(error.response.data);
         setError(error.response.data);
         setSuccess(false);
+        console.log(error);
       });
   };
 

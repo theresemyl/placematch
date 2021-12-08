@@ -23,8 +23,8 @@ function Login(props) {
         props.history.push("./location");
       })
       .catch((error) => {
-        console.log(error);
         setIsError(true);
+        console.log(error);
       });
   };
 

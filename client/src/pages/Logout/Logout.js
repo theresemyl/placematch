@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 function Logout(props) {
   useEffect(() => {
     sessionStorage.removeItem("token");
-    console.log("logged out");
     props.history.push("/");
     window.location.reload();
   });

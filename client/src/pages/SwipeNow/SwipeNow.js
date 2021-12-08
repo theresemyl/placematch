@@ -21,18 +21,13 @@ const style = {
   p: 4,
 };
 
-function SwipeNow(
-  { userName, userId, restaurantList, setRestaurantList },
-  props
-) {
-  // const [swipeRestaurantList, setSwipeRestaurantList] = useState([]);
+function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
   const [foundUser, setFoundUser] = useState(null);
   const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [photo, setPhoto] = useState("");
-  // const [match, setMatch] = useState(false);
   console.log("restaurant list inside Swipe Now page", restaurantList);
 
   useEffect(() => {
@@ -62,7 +57,7 @@ function SwipeNow(
         }
       })
       .catch((err) => {
-        console.log("inside handlesubmit", err);
+        console.log(err);
       });
   };
 
@@ -98,7 +93,6 @@ function SwipeNow(
             like.users_id === foundUser
           ) {
             setOpen(true);
-            console.log("last item", lastItem);
             axios
               .post(`./api/users/matches`, {
                 date: Date.now(),
@@ -127,21 +121,19 @@ function SwipeNow(
 
   const handleClose = () => setOpen(false);
 
-  // if (restaurantList === null) {
-  //   return (
-  //     <>
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <h3>
-  //         Sorry! No restaurants were found in your search. Please try again.
-  //       </h3>
-  //     </>
-  //   );
-  // }
-
-  // console.log("restaurant photo here:", restaurantList[0].photos[0].getUrl());
+  if (restaurantList === null) {
+    return (
+      <>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h3>
+          Sorry! No restaurants were found in your search. Please try again.
+        </h3>
+      </>
+    );
+  }
 
   return (
     <div>

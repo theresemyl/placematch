@@ -50,7 +50,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    console.log("logout");
     sessionStorage.removeItem("token");
     setCurrentUser(null);
   };
