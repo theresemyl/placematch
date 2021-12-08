@@ -166,7 +166,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
           </h2>
           <br />
 
-          {restaurantList.length === -1 ? (
+          {restaurantList === null && isLoading === true ? (
             <h1>Oops! Something went wrong. Please try again. </h1>
           ) : (
             restaurantList.map((restaurant) => (
@@ -178,11 +178,6 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
                 preventSwipe={["up", "down"]}
               >
                 <div className="card">
-                  {/* <img
-                    src={photo}
-                    alt="restaurant"
-                    className="swipenow__photo"
-                  /> */}
                   <img
                     src={
                       restaurant.photos[0].getUrl()
