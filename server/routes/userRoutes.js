@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const uniqid = require("uniqid");
-// const { listUsers } = require("../controllers/userControllers");
-// const userControllers = require("../controllers/userControllers");
-
-// router.route("/").get(userControllers.index);
 
 const auth = require("../middleware/auth");
 
@@ -39,11 +35,11 @@ router.get("/all", getUsers);
 router.get("/:id", getUserById);
 
 // writing to & getting LIKES database
-router.post("/likes", postUserLikes);
 router.get("/all/likes", getUserLikes);
+router.post("/likes", postUserLikes);
 
 // writing to & getting MATCHES database
-router.post("/matches", postUserMatches);
 router.get("/all/matches", getUserMatches);
+router.post("/matches", postUserMatches);
 
 module.exports = router;
