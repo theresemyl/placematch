@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import SwipeNow from "../../pages/SwipeNow/SwipeNow";
 
 const ProtectedRoute = ({
   component: Component,

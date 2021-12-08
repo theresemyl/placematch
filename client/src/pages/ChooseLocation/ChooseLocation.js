@@ -95,7 +95,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
       getLocation.lat(),
       getLocation.lng()
     );
-    // console.log(service);
 
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (res) => {
@@ -143,8 +142,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
           //   onMapChange(event);
         }}
       >
-        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5EhTL5WqCF5ZD56zQD5WJsNRGA_0CzV0&libraries=places"></script> */}
-
         <Circle center={center} options={options} />
         <Marker
           position={center}
@@ -163,9 +160,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
       <br />
       <button onClick={handleClick}>Click to start swiping!</button>
       <br />
-      {/* {restaurantList.map((restaurant) => (
-        <p key={restaurant.name}>{restaurant.name}</p>
-      ))} */}
     </div>
   );
 }

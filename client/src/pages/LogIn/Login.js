@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Login.scss";
 import { Link } from "react-router-dom";
 
 function Login(props) {
@@ -40,9 +39,6 @@ function Login(props) {
       <form className="login" onSubmit={handleSubmit}>
         <h1 className="login__title">Log in</h1>
         <div className="field">
-          {/* <label htmlFor="email" className="field__label">
-              Email
-            </label> */}
           <input
             className="field__input"
             type="email"
@@ -53,9 +49,6 @@ function Login(props) {
           />
         </div>
         <div className="field">
-          {/* <label htmlFor="password" className="field__label">
-              Password
-            </label> */}
           <input
             className="field__input"
             type="password"
@@ -66,12 +59,11 @@ function Login(props) {
           />
         </div>
         <button className="login__button">Login</button>
-        {/* {!this.state.isError && <Link to="/swipenow">Swipe Now</Link>} */}
         <br />
         <br />
         {isError && (
           <div className="login__message">
-            Wrong password! sign up or go away!!!
+            Wrong password! Please try again.
           </div>
         )}
       </form>

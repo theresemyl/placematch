@@ -195,7 +195,7 @@ function SwipeNow(
                     src={
                       restaurant.photos[0].getUrl()
                         ? restaurant.photos[0].getUrl()
-                        : "no photo"
+                        : "This restaurant has no photo"
                     }
                     alt="restaurant"
                     className="swipenow__photo"

@@ -4,13 +4,8 @@
 .home {
   height: 100%;
   width: 100%;
+  margin: 240px 0;
   &:hover {
     opacity: 70%;
   }
-}
-
-a {
-  text-decoration: none;
-  color: #8e5ea3;
-  font-family: $bold;
 }

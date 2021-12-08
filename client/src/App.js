@@ -87,9 +87,6 @@ function App() {
                   }}
                 />
               )}
-
-              // component={Logout}
-              // handleLogout={handleLogout}
             />
             <Route path="/signup" exact component={SignUp} />
             <ProtectedRoute

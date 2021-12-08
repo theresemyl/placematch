@@ -8,30 +8,9 @@ function Home() {
       {" "}
       <Link to="/login">
         <div className="home">
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
           <h1>🍽️</h1>
           <h1>PlaceMatch</h1>
           <p>Click to begin</p>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
         </div>
       </Link>
     </>
