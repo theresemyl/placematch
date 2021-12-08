@@ -39,6 +39,8 @@ PORT=8080
 JWT_SECRET=hello
 ```
 
+Run `npm start` to run the project on your browser.
+
 ## 🔑 Required API Key
 
 This project requires you to create your own API key from the
@@ -50,6 +52,13 @@ After registering your API key, enter it in the client-side `.env` file, for exa
 REACT_APP_GOOGLE_API_KEY=apikeyhere
 ```
 
-## Usage
+## 💡 Features
 
-To be updated.
+- Sign up, Login, and Logout functionality with JWT Tokens and authentication
+- Choose Location on map powered by Google Maps API
+- Google Places API pulls data of restaurants within the radius
+- Ability to enter the username of a friend you want to swipe with
+- Swipe functionality to swipe on restaurants
+- Popup when match occurs with a link to all matches
+- Matches pages with all previous matches
+- Dashboard page with a button to click for a randomized "like"
