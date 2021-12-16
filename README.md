@@ -62,3 +62,9 @@ REACT_APP_GOOGLE_API_KEY=apikeyhere
 - Popup when match occurs with a link to all matches
 - Matches pages with all previous matches
 - Dashboard page with a button to click for a randomized "like"
+
+## 🐛 Limitations
+
+Currently working on the following bugs:
+- Google Map not updating until second re-render, requires you to click out of the map page and back to register the location selected to pull a new list of restaurants. In the process of testing a few solutions. 
+- API call to Nearby Search can timeout if the call is taking too long. 
