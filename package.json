@@ -1,0 +1,23 @@
+{
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "PlaceMatch is a full-stack web app that lets you swipe on local restaurants with a friend to find your next place to eat, from anywhere in the world.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theresemyl/capstone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theresemyl/capstone/issues"
+  },
+  "homepage": "https://github.com/theresemyl/capstone#readme",
+  "engines": {
+    "node": "14.17.6"
+  }
+}
