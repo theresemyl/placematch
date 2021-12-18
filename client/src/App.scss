@@ -40,3 +40,18 @@
   align-items: flex-end;
   justify-content: space-between;
 }
+
+button {
+  color: white;
+  background-color: #9796f0;
+  border: none;
+  margin-top: 12px;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #fbc7d4;
+    opacity: 90%;
+  }
+}
