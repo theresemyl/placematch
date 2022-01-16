@@ -19,9 +19,9 @@ function Signup(props) {
       })
       .then(() => {
         alert("Signed up successfully!");
-        event.target.reset();
         setError("");
         setSuccess(true);
+        event.target.reset();
         props.history.push("./login");
       })
       .catch((error) => {

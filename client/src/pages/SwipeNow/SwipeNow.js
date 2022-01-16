@@ -166,7 +166,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
           </h2>
           <br />
 
-          {restaurantList === null && isLoading === true ? (
+          {restaurantList === null || isLoading === true ? (
             <h1>Oops! Something went wrong. Please try again. </h1>
           ) : (
             restaurantList.map((restaurant) => (
