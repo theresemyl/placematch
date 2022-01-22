@@ -1,4 +1,4 @@
-const knex = require("knex")(require("../knexfile").development);
+const knex = require("knex")(require("../knexfile"));
 // const knex =
 //   process.env.NODE_ENV === "production"
 //     ? require("knex")(require("../knexfile").production)
