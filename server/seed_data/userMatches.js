@@ -11,6 +11,6 @@ module.exports = [
     matched_user_id1: 1,
     matched_user_id2: 2,
     matched_user_name1: "bob",
-    matched_user_name2: "orange",
+    matched_user_name2: "cody",
   },
 ];

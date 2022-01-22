@@ -4,7 +4,7 @@
   "description": "PlaceMatch is a full-stack web app that lets you swipe on local restaurants with a friend to find your next place to eat, from anywhere in the world.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node index.js",
     "build": "cd client/ && npm install && npm run build"
   },
@@ -20,5 +20,11 @@
   "homepage": "https://github.com/theresemyl/capstone#readme",
   "engines": {
     "node": "14.17.6"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
+  },
+  "dependencies": {
+    "react-test-renderer": "^17.0.2"
   }
 }

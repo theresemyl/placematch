@@ -35,7 +35,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
       return restaurant;
     });
     setRestaurantList(list);
-    setIsLoading(true);
+    setIsLoading(false);
   }, []);
 
   const handleSubmit = (event) => {
@@ -166,7 +166,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
           </h2>
           <br />
 
-          {restaurantList === null || isLoading === true ? (
+          {restaurantList.length <= 0 || isLoading === true ? (
             <h1>Oops! Something went wrong. Please try again. </h1>
           ) : (
             restaurantList.map((restaurant) => (
