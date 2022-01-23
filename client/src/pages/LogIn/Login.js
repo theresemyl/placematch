@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://placematch-data.herokuapp.com/api/users/"
+    : "http://localhost:8080/";
+
 function Login(props) {
   const [formData, setFormData] = useState(null);
   const [isError, setIsError] = useState(false);
@@ -16,14 +21,16 @@ function Login(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("/api/users/login", formData)
+      .post(API_URL + "login", formData)
       .then((res) => {
         sessionStorage.setItem("token", res.data.token);
         props.onLoginSuccess(res.data.user);
-        props.history.push("./location");
+        props.history.push("/location");
       })
       .catch((error) => {
-        setIsError(true);
+        setTimeout(function () {
+          setIsError(true);
+        }, 2000);
         console.log(error);
       });
   };
@@ -36,7 +43,7 @@ function Login(props) {
       <br />
       <br />
       <br />
-      <form className="login" onSubmit={handleSubmit}>
+      <form className="login" onSubmit={() => handleSubmit}>
         <h1 className="login__title">Log in</h1>
         <div className="field">
           <input

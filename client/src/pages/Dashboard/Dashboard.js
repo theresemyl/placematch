@@ -3,13 +3,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Dashboard.scss";
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://placematch-data.herokuapp.com/api/users/"
+    : "http://localhost:8080/";
+
 let randomList = [];
 function Dashboard({ userName, userId }) {
   const [likedRestaurants, setLikedRestaurants] = useState([]);
   const [randomLike, setRandomLike] = useState([]);
   useEffect(() => {
     axios
-      .get("./api/users/all/likes")
+      .get(API_URL + "all/likes")
       .then((response) => {
         let likedList = response.data.filter((like) => {
           if (like.swipe_direction === "right" && like.users_id === userId) {

@@ -21,6 +21,11 @@ const style = {
   p: 4,
 };
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://placematch-data.herokuapp.com/api/users/"
+    : "http://localhost:8080/";
+
 function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
   const [foundUser, setFoundUser] = useState(null);
   const [foundUserName, setFoundUserName] = useState(null);
@@ -42,7 +47,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
     event.preventDefault();
 
     axios
-      .get("./api/users/all")
+      .get(API_URL + "all")
       .then((response) => {
         let findUser = response.data.find((name) => {
           return name.username === event.target.name.value;
@@ -65,7 +70,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
     setSwipeDirection(direction);
     setPhoto(String(restaurant.photos[0].getUrl()));
     axios
-      .post(`./api/users/likes`, {
+      .post(API_URL + "likes", {
         users_id: userId,
         name: restaurant.name,
         address: restaurant.vicinity,
@@ -82,7 +87,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
 
   const outOfFrame = (name) => {
     axios
-      .get("./api/users/all/likes")
+      .get(API_URL + "all/likes")
       .then((response) => {
         const lastItem = response.data[response.data.length - 1];
         response.data.find((like) => {
@@ -94,7 +99,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
           ) {
             setOpen(true);
             axios
-              .post(`./api/users/matches`, {
+              .post(API_URL + "matches", {
                 date: Date.now(),
                 name: lastItem.name,
                 address: lastItem.address,

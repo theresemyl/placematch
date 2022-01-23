@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./SignUp.scss";
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://placematch-data.herokuapp.com/api/users/"
+    : "http://localhost:8080/";
+
 function Signup(props) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -11,7 +16,7 @@ function Signup(props) {
     event.preventDefault();
 
     axios
-      .post("http://localhost:8080/api/users/signup", {
+      .post(API_URL + "signup", {
         email: event.target.email.value,
         username: event.target.username.value,
         name: event.target.name.value,
@@ -38,7 +43,7 @@ function Signup(props) {
       <br />
       <br />
       <br />
-      <form className="signup" onSubmit={handleSubmit}>
+      <form className="signup" onSubmit={() => handleSubmit}>
         <h1 className="signup__title">Sign up</h1>
 
         <input

@@ -7,12 +7,17 @@ import en from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
 TimeAgo.addDefaultLocale(en);
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://placematch-data.herokuapp.com/api/users/"
+    : "http://localhost:8080/";
+
 function Matches({ userName, userId }) {
   const [likedRestaurants, setLikedRestaurants] = useState([]);
 
   useEffect(() => {
     axios
-      .get("./api/users/all/matches")
+      .get(API_URL + "all/matches")
       .then((response) => {
         let likedList = response.data.filter((like) => {
           if (

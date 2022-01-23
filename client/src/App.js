@@ -14,6 +14,11 @@ import axios from "axios";
 import Matches from "./pages/Matches/Matches";
 import ChooseLocation from "./pages/ChooseLocation/ChooseLocation";
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://placematch-data.herokuapp.com/api/users/"
+    : "http://localhost:8080/";
+
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userName, setUserName] = useState("");
@@ -22,7 +27,7 @@ function App() {
 
   const token = sessionStorage.getItem("token");
   axios
-    .get("http://localhost:8080/api/users/current", {
+    .get(API_URL + "current", {
       headers: {
         Authorization: `token ${token}`,
       },
