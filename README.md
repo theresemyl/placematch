@@ -6,6 +6,8 @@ On the front-end, the project uses React and the Google Maps/Places API.
 
 On the back-end, the project uses Node, Express, MySQL, and Knex.
 
+** App is currently temporarily suspended due to account expiration on the Google Cloud & Maps Platform. A solution is in progress! **
+
 ## 🛠️ Installation
 
 Use npm install to install node modules for client and server-side.
@@ -66,5 +68,6 @@ REACT_APP_GOOGLE_API_KEY=apikeyhere
 ## 🐛 Limitations
 
 Currently working on the following bugs:
-- Google Map not updating until second re-render, requires you to click out of the map page and back to register the location selected to pull a new list of restaurants. In the process of testing a few solutions. 
-- API call to Nearby Search can timeout if the call is taking too long. 
+
+- Google Map not updating until second re-render, requires you to click out of the map page and back to register the location selected to pull a new list of restaurants. In the process of testing a few solutions.
+- API call to Nearby Search can timeout if the call is taking too long.
