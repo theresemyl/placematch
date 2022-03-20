@@ -172,8 +172,8 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
           ) : (
             restaurantList.map((restaurant) => (
               <TinderCard
-                className="swipe"
                 key={restaurant.id}
+                className="swipe"
                 onSwipe={(dir) => handleSwipe(dir, restaurant.name, restaurant)}
                 onCardLeftScreen={() => outOfFrame(restaurant.name)}
                 preventSwipe={["up", "down"]}

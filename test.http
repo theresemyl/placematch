@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
     "email": "testing@gmail.com",
-    "password": "testing123"
+    "password": "testing123",
 }
 
 ###
@@ -25,7 +25,7 @@ Content-Type: application/json
 
 GET http://localhost:8080/api/users/current HTTP/1.1
 Content-Type: application/json
-Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhbmFuYUBmcnVpdC5jb20iLCJpYXQiOjE2Mzg0MDE1ODAsImV4cCI6MTYzODQ4Nzk4MH0.bdtSfqr3Rqlpbx17xXfsKkwKVGmQ2GbzFvmL4yzlvd0
+Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RpbmcyMEBnbWFpbC5jb20iLCJpYXQiOjE2NDc3MzQzMjAsImV4cCI6MTY0NzgyMDcyMH0.Cq4V_noc96AFtNaJz32MbbSca3dHq6FtobDgbfCvUT4
 
 ###
 

@@ -38,31 +38,14 @@ const options = {
 
 let resList = [];
 
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 function ChooseLocation(props, { restaurantList, setRestaurantList }) {
   const [marker, setMarker] = useState([]);
-
-  const isInitialMount = useRef(true);
-
-  const prevAmount = usePrevious({ restaurantList, setRestaurantList });
+  const [newList, setNewList] = useState([]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     libraries,
   });
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    }
-  }, [props.restaurantList, marker]);
 
   if (loadError) {
     return "Sorry, error loading map!";
@@ -71,8 +54,13 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
   if (!isLoaded) {
     return "Loading map...";
   }
+
+  const handleMarker = (event) => {
+    center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+    setMarker(center);
+  };
+
   const onMapChange = (map) => {
-    console.log("on map change map", map);
     let getLocation = new window.google.maps.LatLng(center.lat, center.lng);
     let request = {
       location: getLocation,
@@ -80,45 +68,36 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
       type: ["restaurant"],
     };
 
-    const callback = (res) => {
-      console.log("callback: ", res);
-      props.setRestaurantList(res);
-    };
+    // const callback = (res) => {
+    //   console.log("callback: ", res);
+    //   props.setRestaurantList(res);
+    // };
 
     const service = new window.google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-    //   (res) => {
-    //   props.setRestaurantList(res);
-    // }
+    service.nearbySearch(request, (res, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        console.log("res inside nearby search", res);
+        console.log(status);
+        // props.setNewList(res);
+        // console.log("new list: ", newList);
+      }
+      props.setRestaurantList(res);
+    });
   };
-  // const onMapLoad = (map) => {
-  //   new window.google.maps.LatLng(center.lat, center.lng);
-  // };
 
-  // const handleMarker = useCallback(event => {
-  //   center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-  //   setMarker(() => [
-  //     {
-  //       lat: event.latLng.lat(),
-  //       lng: event.latLng.lng(),
-  //       time: new Date(),
-  //     },
-  //   ])});
-
-  const handleMarker = (event) => {
-    center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-    setMarker(() => [
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-    console.log(center);
-  };
+  function callback(results, status) {
+    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        setMarker(results[i]);
+        console.log("callback fn results:", results[i]);
+      }
+    }
+    props.setRestaurantList(results);
+  }
 
   const handleClick = (map) => {
     props.history.push("./swipenow");
+    console.log(props);
   };
 
   return (
@@ -132,16 +111,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
         center={center}
         options={options}
         onClick={(event) => handleMarker(event)}
-        // onClick={(event) => {
-        //   center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-        //   setMarker(() => [
-        //     {
-        //       lat: event.latLng.lat(),
-        //       lng: event.latLng.lng(),
-        //       time: new Date(),
-        //     },
-        //   ]);
-        // }}
       >
         <Circle center={center} options={options} />
         <Marker
@@ -151,12 +120,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
           title={"marker"}
           name={"marker"}
         />
-        {/* <Marker
-          key={marker.time}
-          position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
-          visible={true}
-          title={"marker"}
-        /> */}
       </GoogleMap>
       <br />
       <button onClick={handleClick}>Click to start swiping!</button>

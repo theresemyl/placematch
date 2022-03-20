@@ -38,7 +38,6 @@ function App() {
       const { name, id } = response.data.user;
       setUserName(name);
       setUserId(id);
-      console.log("app");
     })
     .catch((error) => {
       console.error(error);

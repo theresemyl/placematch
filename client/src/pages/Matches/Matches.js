@@ -51,7 +51,7 @@ function Matches({ userName, userId }) {
       <p>Here are your past matches:</p>
 
       {likedRestaurants.map((like) => (
-        <div>
+        <div key={like.address}>
           {like.matched_user_name1 === userName ? (
             <div className="match__container">
               <div className="match__container-left">
