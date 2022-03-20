@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 
 const style = {
   position: "absolute",
@@ -20,11 +21,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://placematch-data.herokuapp.com/api/users/"
-    : "http://localhost:8080/";
 
 function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
   const [foundUser, setFoundUser] = useState(null);
@@ -47,7 +43,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
     event.preventDefault();
 
     axios
-      .get(API_URL + "all")
+      .get(API_URL + "/api/users/all")
       .then((response) => {
         let findUser = response.data.find((name) => {
           return name.username === event.target.name.value;
@@ -70,7 +66,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
     setSwipeDirection(direction);
     setPhoto(String(restaurant.photos[0].getUrl()));
     axios
-      .post(API_URL + "likes", {
+      .post(API_URL + "/api/users/likes", {
         users_id: userId,
         name: restaurant.name,
         address: restaurant.vicinity,
@@ -87,7 +83,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
 
   const outOfFrame = (name) => {
     axios
-      .get(API_URL + "all/likes")
+      .get(API_URL + "/api/users/all/likes")
       .then((response) => {
         const lastItem = response.data[response.data.length - 1];
         response.data.find((like) => {
@@ -99,7 +95,7 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
           ) {
             setOpen(true);
             axios
-              .post(API_URL + "matches", {
+              .post(API_URL + "/api/users/matches", {
                 date: Date.now(),
                 name: lastItem.name,
                 address: lastItem.address,

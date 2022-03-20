@@ -1,23 +1,19 @@
 import "./Matches.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
-TimeAgo.addDefaultLocale(en);
+import { API_URL } from "../../config";
 
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://placematch-data.herokuapp.com/api/users/"
-    : "http://localhost:8080/";
+TimeAgo.addDefaultLocale(en);
 
 function Matches({ userName, userId }) {
   const [likedRestaurants, setLikedRestaurants] = useState([]);
 
   useEffect(() => {
     axios
-      .get(API_URL + "all/matches")
+      .get(API_URL + "/api/users/all/matches")
       .then((response) => {
         let likedList = response.data.filter((like) => {
           if (

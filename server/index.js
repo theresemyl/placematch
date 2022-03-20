@@ -1,10 +1,11 @@
 // if (process.env.NODE_ENV !== "production") require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 
 app.use(cors());
 app.use(express.json());
