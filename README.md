@@ -4,9 +4,7 @@ PlaceMatch is a full-stack web app that lets you swipe on local restaurants with
 
 On the front-end, the project uses React and the Google Maps/Places API.
 
-On the back-end, the project uses Node, Express, MySQL, and Knex.
-
-** App is currently temporarily suspended due to account expiration on the Google Cloud & Maps Platform. A solution is in progress! **
+On the back-end, the project uses NodeJS, Express, MySQL, and Knex.
 
 ## 🛠️ Installation
 
@@ -38,7 +36,7 @@ On the server-side `.env` file, add your proxy and jwt_secret, for example:
 
 ```
 PORT=8080
-JWT_SECRET=hello
+JWT_SECRET=XX
 ```
 
 Run `npm start` to run the project on your browser.
@@ -70,4 +68,3 @@ REACT_APP_GOOGLE_API_KEY=apikeyhere
 Currently working on the following bugs:
 
 - Google Map not updating until second re-render, requires you to click out of the map page and back to register the location selected to pull a new list of restaurants. In the process of testing a few solutions.
-- API call to Nearby Search can timeout if the call is taking too long.
