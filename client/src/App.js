@@ -13,6 +13,7 @@ import Home from "./pages/Home/Home";
 import axios from "axios";
 import Matches from "./pages/Matches/Matches";
 import ChooseLocation from "./pages/ChooseLocation/ChooseLocation";
+import ChooseFriend from "./pages/ChooseFriend/ChooseFriend";
 
 // const API_URL =
 //   process.env.NODE_ENV === "production"
@@ -26,6 +27,8 @@ function App() {
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(0);
   const [restaurantList, setRestaurantList] = useState([]);
+  const [foundUser, setFoundUser] = useState(null);
+  const [foundUserName, setFoundUserName] = useState(null);
 
   const token = sessionStorage.getItem("token");
   axios
@@ -51,6 +54,19 @@ function App() {
       setCurrentUser(null);
     }
   }, []);
+
+  const handleChange = (value) => {
+    // setFoundUserName(value);
+    console.log("handle change");
+  };
+
+  const setList = (arr) => {
+    setRestaurantList(arr);
+  };
+
+  console.log("found username in app", foundUserName);
+
+  console.log(restaurantList);
 
   const handleLogin = (user) => {
     setCurrentUser(user);
@@ -101,7 +117,39 @@ function App() {
               component={ChooseLocation}
               restaurantList={restaurantList}
               setRestaurantList={setRestaurantList}
+              setList={setList}
             />
+            {/* <ChooseLocation
+                component={ChooseLocation}
+                restaurantList={restaurantList}
+                setRestaurantList={setRestaurantList}
+                setList={setList}
+              />
+            </ProtectedRoute> */}
+
+            <ProtectedRoute
+              exact
+              path={"/choosefriend"}
+              component={ChooseFriend}
+              userName={userName}
+              userId={userId}
+              foundUser={foundUser}
+              setFoundUser={setFoundUser}
+              foundUserName={foundUserName}
+              setFoundUserName={setFoundUserName}
+              handleChange={handleChange}
+            />
+            {/* <ChooseFriend
+                component={ChooseFriend}
+                userName={userName}
+                userId={userId}
+                foundUser={foundUser}
+                // setFoundUser={setFoundUser}
+                foundUserName={foundUserName}
+                // setFoundUserName={setFoundUserName}
+                handleChange={handleChange}
+              />
+            </ProtectedRoute> */}
             <ProtectedRoute
               exact
               path="/swipenow"
@@ -110,7 +158,20 @@ function App() {
               userId={userId}
               restaurantList={restaurantList}
               setRestaurantList={setRestaurantList}
+              foundUser={foundUser}
+              foundUserName={foundUserName}
             />
+            {/* <SwipeNow
+                component={SwipeNow}
+                userName={userName}
+                userId={userId}
+                restaurantList={restaurantList}
+                setRestaurantList={setRestaurantList}
+                foundUser={foundUser}
+                foundUserName={foundUserName}
+              />
+            </ProtectedRoute> */}
+
             <ProtectedRoute
               path={"/dashboard"}
               component={Dashboard}

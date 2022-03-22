@@ -128,8 +128,36 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
   };
 
   return (
-    <div>
-      <h1>Choose location</h1>
+    <main>
+      {/* first time choosing location */}
+      <div>
+        <h1>Choose location</h1>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={12}
+          onLoad={(map) => onMapChange(map)}
+          onCenterChanged={(map) => onMapChange(map)}
+          center={center}
+          options={options}
+          onClick={(event) => handleMarker(event)}
+        >
+          <Circle center={center} options={options} />
+          <Marker
+            position={center}
+            key={"mark"}
+            visible={true}
+            title={"marker"}
+            name={"marker"}
+          />
+        </GoogleMap>
+        <br />
+        <button onClick={handleClick}>Click to start swiping!</button>
+        <br />
+      </div>
+
+      {/* second time choosing location with rerender with classes */}
+      {/* <div>
+      <h1>You have chosen the following location: </h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
@@ -138,16 +166,6 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
         center={center}
         options={options}
         onClick={(event) => handleMarker(event)}
-        // onClick={(event) => {
-        //   center = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-        //   setMarker(() => [
-        //     {
-        //       lat: event.latLng.lat(),
-        //       lng: event.latLng.lng(),
-        //       time: new Date(),
-        //     },
-        //   ]);
-        // }}
       >
         <Circle center={center} options={options} />
         <Marker
@@ -157,17 +175,13 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
           title={"marker"}
           name={"marker"}
         />
-        {/* <Marker
-          key={marker.time}
-          position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
-          visible={true}
-          title={"marker"}
-        /> */}
       </GoogleMap>
       <br />
+      <h1>You are swiping with: </h1>
       <button onClick={handleClick}>Click to start swiping!</button>
       <br />
-    </div>
+      </div> */}
+    </main>
   );
 }
 

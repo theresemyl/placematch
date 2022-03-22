@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
+
 import {
   GoogleMap,
   useLoadScript,
@@ -36,11 +38,27 @@ const options = {
   zIndex: 1,
 };
 
-let resList = [];
-
-function ChooseLocation(props, { restaurantList, setRestaurantList }) {
+function ChooseLocation(
+  props,
+  { restaurantList, setRestaurantList, foundUserName }
+) {
   const [marker, setMarker] = useState([]);
-  const [newList, setNewList] = useState([]);
+  const [newUser, setNewUser] = useState(props.foundUserName);
+  console.log("newuser", newUser);
+  useEffect(() => {
+    // if (restaurantList !== null) {
+    //   console.log("not null", restaurantList);
+    // }
+
+    // if (props.foundUserName !== undefined) {
+    //   let newFoundUserName = foundUserName;
+    //   console.log(newFoundUserName);
+    // }
+
+    setTimeout(function () {
+      console.log("found username inside useeffect", props.foundUserName);
+    }, 2000);
+  }, []);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -68,63 +86,85 @@ function ChooseLocation(props, { restaurantList, setRestaurantList }) {
       type: ["restaurant"],
     };
 
-    // const callback = (res) => {
-    //   console.log("callback: ", res);
-    //   props.setRestaurantList(res);
-    // };
-
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (res, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         console.log("res inside nearby search", res);
         console.log(status);
-        // props.setNewList(res);
-        // console.log("new list: ", newList);
       }
       props.setRestaurantList(res);
     });
   };
 
-  function callback(results, status) {
-    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-        setMarker(results[i]);
-        console.log("callback fn results:", results[i]);
-      }
-    }
-    props.setRestaurantList(results);
-  }
-
-  const handleClick = (map) => {
-    props.history.push("./swipenow");
-    console.log(props);
-  };
+  console.log("found username in choose location", foundUserName);
+  console.log(props);
+  // props.setFoundUserName((prevState) => {
+  //   // prevState,
+  //   return prevState;
+  // });
 
   return (
-    <div>
-      <h1>Choose location</h1>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={12}
-        onLoad={(map) => onMapChange(map)}
-        onCenterChanged={(map) => onMapChange(map)}
-        center={center}
-        options={options}
-        onClick={(event) => handleMarker(event)}
-      >
-        <Circle center={center} options={options} />
-        <Marker
-          position={center}
-          key={"mark"}
-          visible={true}
-          title={"marker"}
-          name={"marker"}
-        />
-      </GoogleMap>
-      <br />
-      <button onClick={handleClick}>Click to start swiping!</button>
-      <br />
-    </div>
+    <main>
+      {/* first time choosing location */}
+
+      {props.foundUserName === undefined ? (
+        <div>
+          <h1>Choose location</h1>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={12}
+            onLoad={(map) => onMapChange(map)}
+            onCenterChanged={(map) => onMapChange(map)}
+            center={center}
+            options={options}
+            onClick={(event) => handleMarker(event)}
+            // onClick={(map) => onMapChange(map)}
+          >
+            <Circle center={center} options={options} />
+            <Marker
+              position={center}
+              key={"mark"}
+              visible={true}
+              title={"marker"}
+              name={"marker"}
+            />
+          </GoogleMap>
+          <br />
+          {/* <button onClick={handleClick}>Click to start swiping!</button> */}
+          <Link to="./choosefriend">Click to start swiping!</Link>
+          <br />
+        </div>
+      ) : (
+        <h1>null</h1>
+      )}
+
+      {/* second time choosing location with rerender with classes */}
+      {/* <div>
+    <h1>You have chosen the following location: </h1>
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      zoom={12}
+      onLoad={(map) => onMapChange(map)}
+      onCenterChanged={(map) => onMapChange(map)}
+      center={center}
+      options={options}
+      onClick={(event) => handleMarker(event)}
+    >
+      <Circle center={center} options={options} />
+      <Marker
+        position={center}
+        key={"mark"}
+        visible={true}
+        title={"marker"}
+        name={"marker"}
+      />
+    </GoogleMap>
+    <br />
+    <h1>You are swiping with: </h1>
+    <button onClick={handleClick}>Click to start swiping!</button>
+    <br />
+    </div> */}
+    </main>
   );
 }
 

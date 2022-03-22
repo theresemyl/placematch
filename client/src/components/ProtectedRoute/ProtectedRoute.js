@@ -8,6 +8,10 @@ const ProtectedRoute = ({
   onMapChange,
   restaurantList,
   setRestaurantList,
+  foundUser,
+  foundUserName,
+  setFoundUser,
+  setFoundUserName,
   ...rest
 }) => {
   const token = sessionStorage.getItem("token");
@@ -31,6 +35,10 @@ const ProtectedRoute = ({
             onMapChange={onMapChange}
             restaurantList={restaurantList}
             setRestaurantList={setRestaurantList}
+            foundUser={foundUser}
+            foundUserName={foundUserName}
+            setFoundUser={setFoundUser}
+            setFoundUserName={setFoundUserName}
           />
         )
       }

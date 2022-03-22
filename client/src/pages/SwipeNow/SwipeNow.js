@@ -22,45 +22,32 @@ const style = {
   p: 4,
 };
 
-function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
-  const [foundUser, setFoundUser] = useState(null);
-  const [foundUserName, setFoundUserName] = useState(null);
+function SwipeNow({
+  userName,
+  userId,
+  restaurantList,
+  setRestaurantList,
+  foundUser,
+  foundUserName,
+}) {
+  // const [foundUser, setFoundUser] = useState(null);
+  // const [foundUserName, setFoundUserName] = useState(null);
   const [swipeDirection, setSwipeDirection] = useState("");
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [photo, setPhoto] = useState("");
   console.log("restaurant list inside Swipe Now page", restaurantList);
 
+  console.log("found user: ", foundUserName);
   useEffect(() => {
     let list = restaurantList.map((restaurant) => {
       return restaurant;
     });
-    setRestaurantList(list);
-    setIsLoading(false);
-  }, []);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    axios
-      .get(API_URL + "/api/users/all")
-      .then((response) => {
-        let findUser = response.data.find((name) => {
-          return name.username === event.target.name.value;
-        });
-        if (findUser) {
-          setFoundUserName(findUser.name);
-          setFoundUser(findUser.id);
-        } else {
-          alert("Sorry! User was not found. Please try again.");
-          setFoundUser(null);
-          setFoundUserName(null);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    // if (restaurantList !== null) {
+    //   setRestaurantList(list);
+    //   setIsLoading(false);
+    // }
+  }, [foundUser, foundUserName]);
 
   const handleSwipe = (direction, name, restaurant) => {
     setSwipeDirection(direction);
@@ -138,90 +125,67 @@ function SwipeNow({ userName, userId, restaurantList, setRestaurantList }) {
 
   return (
     <div>
-      {foundUser === null ? (
-        <div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <h1>Who would you like to swipe with today?</h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="name"
-              label="name"
-              placeholder="Enter friend's username here..."
-              className="input__field"
-            />
-            <br />
-            <button>Enter</button>
-          </form>
-        </div>
-      ) : (
-        <div className="cardContainer">
-          <h2>
-            You are currently swiping with
-            <i> {foundUserName}!</i>
-          </h2>
-          <br />
+      <div className="cardContainer">
+        <h2>
+          You are currently swiping with
+          <i> {foundUserName}!</i>
+        </h2>
+        <br />
 
-          {restaurantList.length <= 0 || isLoading === true ? (
-            <h1>Oops! Something went wrong. Please try again. </h1>
-          ) : (
-            restaurantList.map((restaurant) => (
-              <TinderCard
-                key={restaurant.id}
-                className="swipe"
-                onSwipe={(dir) => handleSwipe(dir, restaurant.name, restaurant)}
-                onCardLeftScreen={() => outOfFrame(restaurant.name)}
-                preventSwipe={["up", "down"]}
-              >
-                <div className="card">
-                  <img
-                    src={
-                      restaurant.photos[0].getUrl()
-                        ? restaurant.photos[0].getUrl()
-                        : "This restaurant has no photo"
-                    }
-                    alt="restaurant"
-                    className="swipenow__photo"
-                  />
-                  <h3>{restaurant.name}</h3>
-                  <h3>{restaurant.vicinity}</h3>
-                </div>
-              </TinderCard>
-            ))
-          )}
-
-          <div>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+        {restaurantList.length <= 0 || isLoading === true ? (
+          <h1>Oops! Something went wrong. Please try again. </h1>
+        ) : (
+          restaurantList.map((restaurant) => (
+            <TinderCard
+              key={restaurant.id}
+              className="swipe"
+              onSwipe={(dir) => handleSwipe(dir, restaurant.name, restaurant)}
+              onCardLeftScreen={() => outOfFrame(restaurant.name)}
+              preventSwipe={["up", "down"]}
             >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  🎉
-                  <br />
-                  <b>You and {foundUserName} matched!</b>
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <b>
-                    Congratulations! Click below to see more of your matches and
-                    pick a place to go.
-                  </b>
-                  <br />
-                  <br />
-                  <Link to="matches">See Matches</Link>
-                </Typography>
-              </Box>
-            </Modal>
-          </div>
+              <div className="card">
+                <img
+                  src={
+                    restaurant.photos[0].getUrl()
+                      ? restaurant.photos[0].getUrl()
+                      : "This restaurant has no photo"
+                  }
+                  alt="restaurant"
+                  className="swipenow__photo"
+                />
+                <h3>{restaurant.name}</h3>
+                <h3>{restaurant.vicinity}</h3>
+              </div>
+            </TinderCard>
+          ))
+        )}
+
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                🎉
+                <br />
+                <b>You and {foundUserName} matched!</b>
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <b>
+                  Congratulations! Click below to see more of your matches and
+                  pick a place to go.
+                </b>
+                <br />
+                <br />
+                <Link to="matches">See Matches</Link>
+              </Typography>
+            </Box>
+          </Modal>
         </div>
-      )}
+      </div>
 
       {swipeDirection ? (
         <h3 className="infoText">You swiped {swipeDirection}</h3>
